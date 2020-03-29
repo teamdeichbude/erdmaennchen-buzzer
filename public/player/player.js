@@ -4,11 +4,8 @@
 jQuery(function ()
 {
     var socket = io();
-    jQuery('form').submit(function (e)
+    jQuery('#submit').on("click", function (e)
     {
-        e.preventDefault(); // prevents page reloading
-        socket.emit('chat message', jQuery('#m').val());
-        jQuery('#m').val('');
-        return false;
+        socket.emit('sda-namechange',  jQuery('#teamname').val());
     });
 });
