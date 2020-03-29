@@ -8,13 +8,36 @@
     <script src="../thirdparty/jquery-3.4.1.min.js"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script src="admin.js"></script>
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 
-<body>
-    <h3>all players</h3>
-    <ul id="allPlayersList">
+<body id="adminview">
+    <div id="header">
+        <h1>Admin dashboard</h1>
+    </div>
 
-    </ul>
+    <div id="content">
+        <div id="playerlist">
+            <h2>Connected players</h2>
+            <ul id="allPlayersList">
+                <li>Luca</li>
+                <li>Maria</li>
+                <li>Nele</li>
+                <li>Renke</li>
+            </ul>
+        </div>
+
+        <div id="control">
+            <button id="activate">Activate Buzzers</button>
+            <ol>
+                <li>Player 1 <span class="time">16:04:32.359</span></li>
+                <li>Player 2 <span class="time">16:04:32.592</span></li>
+                <li>Player 3 <span class="time">16:04:34.157</span></li>
+                <li>Player 4 <span class="time">16:04:36.018</span></li>
+            </ol>
+        </div>
+    </div>
+
 </body>
 
 </html>

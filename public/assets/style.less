@@ -1,0 +1,92 @@
+@bg-colour: #202732;
+@yellow: #fff1c1;
+@red: #f76262;
+@blue: #216583;
+@green: #3ca87f;
+
+@body-width: 75%;
+
+@font-colour-base: darken(#ffffff, 10%);
+
+html {
+    background-color: @bg-colour;
+    height:100%;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    color: @font-colour-base;
+    height:100%;
+}
+
+#header {
+    background-color: @blue;
+    color:#ffffff;
+    font-size:1rem;
+    margin:0;
+    padding: 3rem 0rem 2rem 0rem;
+    h1 {
+        width: @body-width;
+        margin: 0;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+}
+
+#content {
+    width: @body-width;
+    margin: auto;
+}
+
+#adminview {
+    #content {
+        margin-top:2rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-content: center;
+
+        #playerlist {
+            h2 {
+                margin-top:0.5rem;
+                border-bottom:2px solid @font-colour-base;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                li {
+                    list-style: none;
+                    border: 1px solid lighten(@bg-colour, 20%);
+                    border-radius: 5px;
+                    background-color: lighten(@bg-colour, 10%);
+                    padding: 0.6rem;
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+
+        #control {
+            display:flex;
+            flex-direction: column;
+            button {
+                background-color: @green;
+                color: #ffffff;
+                font-size:1.4rem;
+                border: 2px solid darken(@green, 10%);
+                border-radius: 5px;
+                padding:1rem 2rem;
+                margin-top:1rem;
+            }
+            ol {
+                li {
+                    font-size: 1.2rem;
+                    padding:0.5rem 0rem;
+                    .time {
+                        color: darken(@font-colour-base, 20%);
+                    }
+                }
+            }
+        }
+    }
+}
