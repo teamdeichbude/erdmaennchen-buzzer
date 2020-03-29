@@ -48,9 +48,9 @@ body {
         align-content: center;
 
         #playerlist {
+            min-width: 20%;
             h2 {
                 margin-top:0.5rem;
-                border-bottom:2px solid @font-colour-base;
             }
             ul {
                 margin: 0;
@@ -67,21 +67,38 @@ body {
         }
 
         #control {
+            min-width: 25%;
             display:flex;
             flex-direction: column;
             button {
                 background-color: @green;
                 color: #ffffff;
                 font-size:1.4rem;
-                border: 2px solid darken(@green, 10%);
+                border: 0;
                 border-radius: 5px;
                 padding:1rem 2rem;
                 margin-top:1rem;
+                &:hover {
+                    background-color: darken(@green, 10%);
+                }
+                &:active {
+                    background-color: darken(@green, 20%);
+                }
             }
             ol {
+                list-style-position: inside;
+                padding-left:0;
                 li {
                     font-size: 1.2rem;
-                    padding:0.5rem 0rem;
+                    padding:0.5rem 0.5rem;
+                    &:hover {
+                        background-color: lighten(@bg-colour, 10%);
+                    }
+                    &::before {
+                        width:1rem;
+                        content: " ";
+                        display: inline-block;
+                    }
                     .time {
                         float: right;
                         margin-left:2rem;
