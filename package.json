@@ -1,0 +1,23 @@
+{
+  "name": "erdmaennchen-buzzer",
+  "version": "0.1.0",
+  "description": "Buzz buzz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "deichbu@gitea.deichbu.de:luca/erdmaennchen-buzzer.git"
+  },
+  "keywords": [
+    "its",
+    "very",
+    "nice"
+  ],
+  "author": "Me and my GF",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
