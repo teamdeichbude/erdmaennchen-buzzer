@@ -27,6 +27,11 @@ jQuery(function ()
         }
     });
 
+    socket.on("sde-error", function (data)
+    {
+        console.error("sde error: " +  data.error);
+    });
+
     jQuery('#buzz').on("click", function (e)
     {
         socket.emit('sde-player-buzzed', {

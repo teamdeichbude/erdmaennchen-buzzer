@@ -40,8 +40,7 @@ class PlayerConnectionHandler
         let exisitingPlayer = this.getPlayerById(playerId);
         if (exisitingPlayer)
         {
-            console.error("player with id ", playerId, " already exists under the name:", exisitingPlayer[0].name);
-            return false;
+            throw new Error("player with id " + playerId + " already exists under the name:" + exisitingPlayer.name);
         }
 
         let player = new Player(playerId, playerName, playerAudioIdent);

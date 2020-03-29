@@ -26,7 +26,13 @@ io.on('connection', function (socket)
 
   socket.on("sde-player-connect", function (data)
   {
-    ConnectionHandler.connectPlayer(socket.id, data.playerName, data.playerAudio)
+    try {
+      ConnectionHandler.connectPlayer(socket.id, data.playerName, data.playerAudio)
+    }
+    catch(e) {
+      console.error(e);
+      socket.emit("sde-error", {error: e.message});
+    }
 
     //inform admin of playercount changed
     onPlayerConnectionsChanged();
