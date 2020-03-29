@@ -19,6 +19,10 @@ jQuery(function ()
         }
     });
 
+    socket.on("sde-error", function (data)
+    {
+        console.error("sde error: " +  data.error);
+    });
 
     jQuery("#activate").on("click", function() {
         socket.emit("sde-admin-activate", true);

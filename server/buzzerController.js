@@ -9,7 +9,7 @@ class BuzzerController
     playerBuzzed(player)
     {
         if(!player) {
-            console.error("player cant buzz before being connected properly. Please connect with valid name first.");
+            throw new Error("player cant buzz before being connected properly. Please connect with valid name first.")
         }
         if (player.canBuzz)
         {

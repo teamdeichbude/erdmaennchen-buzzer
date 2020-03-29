@@ -40,7 +40,13 @@ io.on('connection', function (socket)
 
   socket.on("sde-player-buzzed", function (data)
   {
-    BuzzerControl.playerBuzzed(ConnectionHandler.getPlayerById(socket.id));
+    try {
+      BuzzerControl.playerBuzzed(ConnectionHandler.getPlayerById(socket.id));
+    }
+    catch(e) {
+      console.error(e);
+      socket.emit("sde-error", {error: e.message});
+    }
   });
 
   socket.on("sde-admin-activate", function (activate)
