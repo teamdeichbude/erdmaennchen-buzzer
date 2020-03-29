@@ -4,12 +4,19 @@
 @blue: #216583;
 @green: #3ca87f;
 
-@body-width: 100%;
+
+@body-width-desktop: 75%;
+
 @font-colour-base: darken(#ffffff, 10%);
+
+.hide {
+    display:none;
+}
 
 html {
     background-color: @bg-colour;
     height:100%;
+    margin:0;
 }
 
 body {
@@ -17,6 +24,28 @@ body {
     margin: 0;
     color: @font-colour-base;
     height:100%;
+    overflow: auto;
+}
+
+button {
+    background-color: @green;
+    color: #ffffff;
+    font-size:1.4rem;
+    border: 0;
+    border-radius: 5px;
+    padding:1rem 2rem;
+    margin-top:1rem;
+    &:hover {
+        background-color: darken(@green, 10%);
+    }
+    &:active {
+        background-color: darken(@green, 20%);
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        font-size: 1.3rem;
+    }
 }
 
 .layoutwrapper {
@@ -33,9 +62,14 @@ body {
     color:#ffffff;
     font-size:1rem;
     margin:0;
-    padding: 3rem 0rem 2rem 0rem;
+    padding: 1.5rem 0 1rem 0;
+    @media (min-width: 768px) {
+        padding: 3rem 0rem 2rem 0rem;
+    }
     h1 {
-        width: @body-width;
+        @media (max-width: 768px) {
+            font-size:1.3rem;
+        }
         margin: 0;
         margin-left: auto;
         margin-right: auto;
@@ -46,7 +80,8 @@ body {
 #content {
     width: 100%;
     margin: auto;
-    flex-grow: 1;
+    padding: 0 2rem;
+    box-sizing: border-box;
     .startscreenstep {
         width: 100%;
         height: 100%;
@@ -54,21 +89,24 @@ body {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transform: translateX(100%);
+        transform: translateX(100vw);
         transition: transform 0.3s ease-in-out;
         &.show {
             transform: translateX(0);
         }
         &.hide {
-            transform: translateX(-100%) !important;
+            transform: translateX(-100vw) !important;
+        }
+        @media (min-width: 768px) {
+            width: @body-width-desktop;
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 }
 
 #adminview {
     #content {
-        margin-top:2rem;
-        display: flex;
         justify-content: space-evenly;
         align-content: center;
 
@@ -95,21 +133,7 @@ body {
             min-width: 25%;
             display:flex;
             flex-direction: column;
-            button {
-                background-color: @green;
-                color: #ffffff;
-                font-size:1.4rem;
-                border: 0;
-                border-radius: 5px;
-                padding:1rem 2rem;
-                margin-top:1rem;
-                &:hover {
-                    background-color: darken(@green, 10%);
-                }
-                &:active {
-                    background-color: darken(@green, 20%);
-                }
-            }
+            
             ol {
                 list-style-position: inside;
                 padding-left:0;
@@ -132,5 +156,36 @@ body {
                 }
             }
         }
+    }
+}
+
+#playerview {
+    height:100%;
+    overflow:auto;
+    input[type=text] {
+        box-sizing: border-box;
+        font-size:1.3rem;
+        width: 100%;
+        border-radius: 5px;
+        border: 0;
+        padding: 0.8rem;
+        text-align: center;
+        background-color: tint(@blue, 80%);
+    }
+    #content {
+        display:flex;
+        align-items: center;
+        overflow:auto;
+    }
+    #step-sound {
+        .hide();
+    }
+
+    #step-info {
+        .hide();
+    }
+
+    #step-play {
+        .hide();
     }
 }
