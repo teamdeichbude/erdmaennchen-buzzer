@@ -16,6 +16,15 @@ jQuery(function ()
     socket.on("sde-player-buzzstatechange", function (data)
     {
         jQuery('#buzz')[0].disabled = !data.enabled;
+        if(data.win === true) {
+            console.log("win");
+        }
+        else if(data.win === false) {
+            console.log("lose");
+        }
+        else {
+            console.log("go to waiting state");
+        }
     });
 
     jQuery('#buzz').on("click", function (e)

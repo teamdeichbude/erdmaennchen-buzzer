@@ -37,7 +37,7 @@ class BuzzerController
         player.canBuzz = state;
         //   if(socket.id === playerID) {
         this.ConnectionHandler.getSocketById(player.id)
-        .emit("sde-player-buzzstatechange", { enabled: state });
+        .emit("sde-player-buzzstatechange", { enabled: state , win: null});
     }
 }
 
