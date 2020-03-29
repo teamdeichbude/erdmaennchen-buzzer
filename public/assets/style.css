@@ -66,5 +66,7 @@ body {
   padding: 0.5rem 0rem;
 }
 #adminview #content #control ol li .time {
+  float: right;
+  margin-left: 2rem;
   color: #b3b3b3;
 }
