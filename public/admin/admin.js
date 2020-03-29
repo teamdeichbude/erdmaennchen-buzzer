@@ -8,7 +8,7 @@ jQuery(function ()
     console.log("admin init");
     var socket = io();
 
-    socket.on("sde-admin-playerAdded", function(data) {
+    socket.on("sde-admin-playersChanged", function(data) {
         console.log(data);
         let jqList = jQuery("#allPlayersList");
         jqList.empty();

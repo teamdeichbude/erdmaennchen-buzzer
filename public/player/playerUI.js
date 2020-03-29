@@ -6,7 +6,7 @@ jQuery(function ()
     var socket = io();
     jQuery('#submit').on("click", function (e)
     {
-        socket.emit('sde-connectPlayer', {
+        socket.emit('sde-player-connect', {
 
             playerName: jQuery('#teamname').val(),
             playerAudio: jQuery("#sound").val()
