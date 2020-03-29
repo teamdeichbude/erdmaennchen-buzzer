@@ -17,6 +17,9 @@ class BuzzerController
             player.lastBuzzTime = Date.now();
             this._buzzOrder.push(player);
             console.log("player", player.name, "buzzed at", player.lastBuzzTime);
+            if(this.BroadcastSocket) {
+                this.BroadcastSocket.emit("sde-player-buzzed", {player: player, time: player.lastBuzzTime});
+            }
         }
     }
 

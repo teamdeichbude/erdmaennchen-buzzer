@@ -13,6 +13,9 @@ app.use(express.static('public')) //serving of static "client" files
 
 io.on('connection', function (socket)
 {
+
+  BuzzerControl.BroadcastSocket = io;
+
   console.log('a user connected'); //socket connected, but not registered as player, yet.
 
   ConnectionHandler.addSocket(socket);
