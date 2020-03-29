@@ -4,14 +4,18 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 let { PlayerConnectionHandler } = require("./playerConnectionHandler");
+let { BuzzerController } = require("./buzzerController");
 
 const ConnectionHandler = new PlayerConnectionHandler();
+const BuzzerControl = new BuzzerController(ConnectionHandler);
 
 app.use(express.static('public')) //serving of static "client" files
 
 io.on('connection', function (socket)
 {
   console.log('a user connected'); //socket connected, but not registered as player, yet.
+
+  ConnectionHandler.addSocket(socket);
 
   socket.on('disconnect', function ()
   {
@@ -28,12 +32,29 @@ io.on('connection', function (socket)
     onPlayerConnectionsChanged();
   });
 
+  socket.on("sde-player-buzzed", function (data)
+  {
+    BuzzerControl.playerBuzzed(ConnectionHandler.getPlayerById(socket.id));
+  });
+
+  socket.on("sde-admin-activate", function (activate)
+  {
+    if (activate)
+    {
+      BuzzerControl.activateAll();
+    }
+  });
+
   function onPlayerConnectionsChanged()
   {
     io.emit("sde-admin-playersChanged", {
       allPlayers: ConnectionHandler.Players
     });
   }
+
+
+
+
 
 });
 

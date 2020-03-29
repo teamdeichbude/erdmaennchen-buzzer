@@ -12,4 +12,16 @@ jQuery(function ()
             playerAudio: jQuery("#sound").val()
         });
     });
+
+    socket.on("sde-player-buzzstatechange", function (data)
+    {
+        jQuery('#buzz')[0].disabled = !data.enabled;
+    });
+
+    jQuery('#buzz').on("click", function (e)
+    {
+        socket.emit('sde-player-buzzed', {
+
+        });
+    });
 });

@@ -18,4 +18,9 @@ jQuery(function ()
             jqList.append(jQuery("<li>").text(player.name + "|| " + player.soundIdent));
         }
     });
+
+
+    jQuery("#activate").on("click", function() {
+        socket.emit("sde-admin-activate", true);
+    });
 });
