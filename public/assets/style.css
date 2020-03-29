@@ -1,12 +1,46 @@
+.hide {
+  display: none;
+}
 html {
   background-color: #202732;
   height: 100%;
+  margin: 0;
 }
 body {
   font-family: Helvetica, Arial, sans-serif;
   margin: 0;
   color: #e6e6e6;
   height: 100%;
+  overflow: auto;
+}
+button {
+  background-color: #3ca87f;
+  color: #ffffff;
+  font-size: 1.5rem;
+  border: 0;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+}
+button:hover {
+  background-color: #2f8263;
+}
+button:active {
+  background-color: #215d46;
+}
+@media (max-width: 768px) {
+  button {
+    width: 100%;
+    font-size: 1.3rem;
+  }
+}
+input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.3rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 .layoutwrapper {
   display: flex;
@@ -21,19 +55,29 @@ body {
   color: #ffffff;
   font-size: 1rem;
   margin: 0;
-  padding: 3rem 0rem 2rem 0rem;
+  padding: 1.5rem 0 1rem 0;
+}
+@media (min-width: 768px) {
+  #header {
+    padding: 3rem 0rem 2rem 0rem;
+  }
 }
 #header h1 {
-  width: 100%;
   margin: 0;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
+@media (max-width: 768px) {
+  #header h1 {
+    font-size: 1.3rem;
+  }
+}
 #content {
   width: 100%;
   margin: auto;
-  flex-grow: 1;
+  padding: 2rem 2rem;
+  box-sizing: border-box;
 }
 #content .startscreenstep {
   width: 100%;
@@ -42,20 +86,26 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: translateX(100%);
+  transform: translateX(100vw);
   transition: transform 0.3s ease-in-out;
 }
 #content .startscreenstep.show {
   transform: translateX(0);
 }
 #content .startscreenstep.hide {
-  transform: translateX(-100%) !important;
+  transform: translateX(-100vw) !important;
+}
+@media (min-width: 768px) {
+  #content .startscreenstep {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 #adminview #content {
-  margin-top: 2rem;
-  display: flex;
   justify-content: space-evenly;
   align-content: center;
+  display: flex;
 }
 #adminview #content #playerlist {
   min-width: 20%;
@@ -80,27 +130,12 @@ body {
   display: flex;
   flex-direction: column;
 }
-#adminview #content #control button {
-  background-color: #3ca87f;
-  color: #ffffff;
-  font-size: 1.4rem;
-  border: 0;
-  border-radius: 5px;
-  padding: 1rem 2rem;
-  margin-top: 1rem;
-}
-#adminview #content #control button:hover {
-  background-color: #2f8263;
-}
-#adminview #content #control button:active {
-  background-color: #215d46;
-}
 #adminview #content #control ol {
   list-style-position: inside;
   padding-left: 0;
 }
 #adminview #content #control ol li {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   padding: 0.5rem 0.5rem;
 }
 #adminview #content #control ol li:hover {
@@ -115,4 +150,32 @@ body {
   float: right;
   margin-left: 2rem;
   color: #b3b3b3;
+}
+#playerview {
+  height: 100%;
+  overflow: auto;
+}
+#playerview input[type=text] {
+  box-sizing: border-box;
+  font-size: 1.3rem;
+  width: 100%;
+  border-radius: 5px;
+  border: 0;
+  padding: 0.8rem;
+  text-align: center;
+  background-color: #d3e0e6;
+}
+#playerview #content {
+  display: flex;
+  align-items: center;
+  overflow: auto;
+}
+#playerview #step-sound {
+  display: none;
+}
+#playerview #step-info {
+  display: none;
+}
+#playerview #step-play {
+  display: none;
 }

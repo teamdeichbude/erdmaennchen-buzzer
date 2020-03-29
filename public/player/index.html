@@ -9,7 +9,6 @@
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script src="playerUI.js"></script>
     <link rel="stylesheet" href="../assets/style.css">
-
 </head>
 
 <body>
@@ -20,18 +19,21 @@
         </div>
 
         <div id="content">
-            <div class="startscreenstep show">
-                <input type="text" id="teamname" />
-                <button id="submit">submit name</button>
+            <div id="step-name" class="startscreenstep show">
+                <input type="text" id="teamname" placeholder="Wie heißt du?"/>
+                <button id="submit">That's my name!</button>
             </div>
-            <div class="startscreenstep " style="display: none;">
+
+            <div id="step-sound" class="startscreenstep">
                 <select id="sound" name="select sound">
                     <option value="määp">Määp</option>
                     <option value="mööp">Mööp</option>
                     <option value="boop">Boop</option>
                     <option value="puff">Puff</option>
                 </select>
+            </div>
 
+            <div id="step-play" class="startscreenstep">
                 <button id="buzz">buzz</button>
             </div>
         </div>
