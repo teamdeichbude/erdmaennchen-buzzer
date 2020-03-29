@@ -12,8 +12,7 @@
 </head>
 
 <body>
-    <div class="layoutwrapper">
-
+    <div id="playerview" class="layoutwrapper">
         <div id="header">
             <h1>Stokstaartje Buzzer</h1>
         </div>
@@ -21,16 +20,20 @@
         <div id="content">
             <div id="step-name" class="startscreenstep show">
                 <input type="text" id="teamname" placeholder="Wie heißt du?"/>
-                <button id="submit">That's my name!</button>
+                <button disabled id="step-name-button">That's my name!</button>
             </div>
 
             <div id="step-sound" class="startscreenstep">
-                <select id="sound" name="select sound">
-                    <option value="määp">Määp</option>
-                    <option value="mööp">Mööp</option>
-                    <option value="boop">Boop</option>
-                    <option value="puff">Puff</option>
-                </select>
+                <div id="sound-grid">
+                    <input type="radio" name="sound" id="sound1" value="sound1"><label for="sound1">Määp</label>
+                    <input type="radio" name="sound" id="sound2" value="sound2"><label for="sound2">Hupe</label>
+                    <input type="radio" name="sound" id="sound3" value="sound3"><label for="sound3">Oink</label>
+                    <input type="radio" name="sound" id="sound4" value="sound4"><label for="sound4">Sound</label>
+                    <input type="radio" name="sound" id="sound5" value="sound5"><label for="sound5">Ring</label>
+                    <input type="radio" name="sound" id="sound6" value="sound6"><label for="sound6">Tuuuut</label>
+                </div>
+            
+                <button id="step-sound-button">Select buzz sound</button>
             </div>
 
             <div id="step-play" class="startscreenstep">

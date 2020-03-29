@@ -3,6 +3,7 @@
 @red: #f76262;
 @blue: #216583;
 @green: #3ca87f;
+@grey: #9c9c9c;
 
 @font-m: 1rem;
 @font-l: 1.3rem;
@@ -44,6 +45,9 @@ button {
     &:active {
         background-color: darken(@green, 20%);
     }
+    &:disabled {
+        background-color: @grey;
+    }
 
     @media (max-width: 768px) {
         width: 100%;
@@ -52,12 +56,14 @@ button {
 }
 
 input[type=text] {
-    width: 100%;
     box-sizing: border-box;
     font-size: @font-l;
-    padding: 0.5rem 1rem;
+    width: 100%;
+    border-radius: 5px;
+    border: 0;
+    padding: 0.8rem;
     text-align: center;
-    margin-bottom: 1rem;
+    background-color: tint(@blue, 80%);
 }
 
 .layoutwrapper {
@@ -94,27 +100,6 @@ input[type=text] {
     margin: auto;
     padding: 2rem 2rem;
     box-sizing: border-box;
-    .startscreenstep {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transform: translateX(100vw);
-        transition: transform 0.3s ease-in-out;
-        &.show {
-            transform: translateX(0);
-        }
-        &.hide {
-            transform: translateX(-100vw) !important;
-        }
-        @media (min-width: 768px) {
-            width: @body-width-desktop;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    }
 }
 
 #adminview {
@@ -173,32 +158,50 @@ input[type=text] {
 }
 
 #playerview {
-    height:100%;
-    overflow:auto;
-    input[type=text] {
-        box-sizing: border-box;
-        font-size: @font-l;
+    .startscreenstep {
         width: 100%;
-        border-radius: 5px;
-        border: 0;
-        padding: 0.8rem;
-        text-align: center;
-        background-color: tint(@blue, 80%);
-    }
-    #content {
-        display:flex;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        overflow:auto;
-    }
-    #step-sound {
-        .hide();
-    }
-
-    #step-info {
-        .hide();
-    }
-
-    #step-play {
-        .hide();
+        justify-content: center;
+        transform: translateX(100vw);
+        transition: transform 0.3s ease-in-out;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding:2rem;
+        box-sizing: border-box;
+        &#step-sound {
+            #sound-grid {
+                padding-bottom:1rem;
+                text-align: center;
+            }
+            input[type="radio"] {
+                visibility: hidden;
+                &+label {
+                    width: 4rem;
+                    height: 4rem;
+                    justify-content: center;
+                    align-items: center;
+                    display: inline-flex;
+                    margin:0.5rem;
+                }
+            }
+            input[type="radio"]:checked + label {
+                background-color: @blue;
+            }
+        }
+        &.show {
+            transform: translateX(0);
+        }
+        &.hide {
+            transform: translateX(-100vw) !important;
+        }
+        @media (min-width: 768px) {
+            width: @body-width-desktop;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 }
