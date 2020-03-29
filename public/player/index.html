@@ -8,21 +8,34 @@
     <script src="../thirdparty/jquery-3.4.1.min.js"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script src="playerUI.js"></script>
+    <link rel="stylesheet" href="../assets/style.css">
+
 </head>
 
 <body>
-    <input type="text" id="teamname" />
-    <select id="sound" name="select sound">
-        <option value="määp">Määp</option>
-        <option value="mööp">Mööp</option>
-        <option value="boop">Boop</option>
-        <option value="puff">Puff</option>
-    </select>
-    <button id="submit">submit name</button>
+    <div class="layoutwrapper">
 
-    <button id="buzz">buzz</button>
+        <div id="header">
+            <h1>Stokstaartje Buzzer</h1>
+        </div>
 
-    <img src="http://localhost:3000/player/liebe.png" />
+        <div id="content">
+            <div class="startscreenstep show">
+                <input type="text" id="teamname" />
+                <button id="submit">submit name</button>
+            </div>
+            <div class="startscreenstep " style="display: none;">
+                <select id="sound" name="select sound">
+                    <option value="määp">Määp</option>
+                    <option value="mööp">Mööp</option>
+                    <option value="boop">Boop</option>
+                    <option value="puff">Puff</option>
+                </select>
+
+                <button id="buzz">buzz</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

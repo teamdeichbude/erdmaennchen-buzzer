@@ -4,8 +4,7 @@
 @blue: #216583;
 @green: #3ca87f;
 
-@body-width: 75%;
-
+@body-width: 100%;
 @font-colour-base: darken(#ffffff, 10%);
 
 html {
@@ -18,6 +17,15 @@ body {
     margin: 0;
     color: @font-colour-base;
     height:100%;
+}
+
+.layoutwrapper {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    flex-direction: column;
 }
 
 #header {
@@ -36,8 +44,25 @@ body {
 }
 
 #content {
-    width: @body-width;
+    width: 100%;
     margin: auto;
+    flex-grow: 1;
+    .startscreenstep {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        &.show {
+            transform: translateX(0);
+        }
+        &.hide {
+            transform: translateX(-100%) !important;
+        }
+    }
 }
 
 #adminview {
