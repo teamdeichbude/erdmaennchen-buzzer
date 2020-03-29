@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player CLient</title>
-    <script src="../thirdparty/jquery-3.4.1.min.js" ></script>
+    <script src="../thirdparty/jquery-3.4.1.min.js"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script src="player.js" ></script>
+    <script src="player.js"></script>
 </head>
+
 <body>
-    <input type="text" id="teamname" / >
+    <input type="text" id="teamname" />
+    <select id="sound" name="select sound">
+        <option value="määp">Määp</option>
+        <option value="mööp">Mööp</option>
+        <option value="boop">Boop</option>
+        <option value="puff">Puff</option>
+    </select>
     <button id="submit">submit name</button>
 
-    <img src="http://localhost:3000/player/liebe.png"/ >
+    <img src="http://localhost:3000/player/liebe.png" />
 </body>
+
 </html>

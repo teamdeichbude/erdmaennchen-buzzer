@@ -6,6 +6,10 @@ jQuery(function ()
     var socket = io();
     jQuery('#submit').on("click", function (e)
     {
-        socket.emit('sda-namechange',  jQuery('#teamname').val());
+        socket.emit('sde-connectPlayer', {
+
+            playerName: jQuery('#teamname').val(),
+            playerAudio: jQuery("#sound").val()
+        });
     });
 });
