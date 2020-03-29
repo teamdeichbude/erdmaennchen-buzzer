@@ -30,7 +30,7 @@ jQuery(function ()
     {
         jQuery("#buzzerOrder").prepend(
             jQuery(listItm)
-                .append([data.player.name], jQuery('<span class="time">').text(new Date(data.time).format("dd/MM/yyyy HH:mm:ss fff")))
+                .append([data.player.name], jQuery('<span class="time">').text(data.formattedTime))
         );
     });
 

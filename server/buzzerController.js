@@ -1,3 +1,6 @@
+
+const dateFormat = require('dateformat');
+
 class BuzzerController
 {
     constructor(connectionHandler)
@@ -18,7 +21,7 @@ class BuzzerController
             this._buzzOrder.push(player);
             console.log("player", player.name, "buzzed at", player.lastBuzzTime);
             if(this.BroadcastSocket) {
-                this.BroadcastSocket.emit("sde-player-buzzed", {player: player, time: player.lastBuzzTime});
+                this.BroadcastSocket.emit("sde-player-buzzed", {player: player, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime,"H:MM:ss.l")});
             }
         }
     }

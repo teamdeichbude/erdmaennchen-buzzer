@@ -18,6 +18,7 @@
   "author": "Me and my GF",
   "license": "ISC",
   "dependencies": {
+    "dateformat": "^3.0.3",
     "express": "^4.17.1",
     "socket.io": "^2.3.0"
   }
