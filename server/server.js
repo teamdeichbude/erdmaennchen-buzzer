@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var conf = require('dotenv/config');
 var path = require('path');
 
 let { PlayerConnectionHandler } = require("./playerConnectionHandler");
@@ -70,8 +69,7 @@ io.on('connection', function (socket)
   }
 });
 
-http.listen(process.env.PORT, function ()
+http.listen(3001, function ()
 {
-  console.log(path.join(__dirname, '../public'));
-  console.log('listening on ' + process.env.PORT);
+  console.log('listening on *:3001');
 });
