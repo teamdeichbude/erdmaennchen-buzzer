@@ -5,9 +5,11 @@
 @green: #3ca87f;
 @grey: #9c9c9c;
 
+@font-s: 0.7rem;
 @font-m: 1rem;
 @font-l: 1.3rem;
 @font-xl: 1.5rem;
+@font-xxl: 2rem;
 
 @body-width-desktop: 75%;
 
@@ -127,6 +129,13 @@ input[type=text] {
             }
         }
 
+        .time, .sound {
+            font-size: @font-m;
+            float: right;
+            margin-left:2rem;
+            color: darken(@font-colour-base, 20%);
+        }
+
         #control {
             min-width: 25%;
             display:flex;
@@ -138,6 +147,7 @@ input[type=text] {
                 li {
                     font-size: @font-l;
                     padding:0.5rem 0.5rem;
+                    line-height:1.6rem;
                     &:hover {
                         background-color: lighten(@bg-colour, 10%);
                     }
@@ -145,11 +155,6 @@ input[type=text] {
                         width:1rem;
                         content: " ";
                         display: inline-block;
-                    }
-                    .time {
-                        float: right;
-                        margin-left:2rem;
-                        color: darken(@font-colour-base, 20%);
                     }
                 }
             }
@@ -178,7 +183,7 @@ input[type=text] {
                 text-align: center;
             }
             input[type="radio"] {
-                visibility: hidden;
+                display: none;
                 &+label {
                     width: 4rem;
                     height: 4rem;
@@ -186,10 +191,30 @@ input[type=text] {
                     align-items: center;
                     display: inline-flex;
                     margin:0.5rem;
+                    border-radius:5px;
+                    border: 1px solid @blue;
+                    font-size: @font-s;
                 }
             }
             input[type="radio"]:checked + label {
                 background-color: @blue;
+            }
+        }
+        &#step-play {
+            button {
+                background-color: @blue;
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+                font-size: @font-xxl;
+                &:hover {
+                    background-color: darken(@blue, 10%);
+                }
+                &:active {
+                    background-color: darken(@blue, 20%);
+                }
+                &:disabled {
+                    background-color: @grey;
+                }
             }
         }
         &.show {

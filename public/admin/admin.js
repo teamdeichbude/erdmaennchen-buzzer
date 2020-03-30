@@ -17,7 +17,7 @@ jQuery(function ()
         for (let p in data.allPlayers)
         {
             let player = data.allPlayers[p];
-            jqList.append(jQuery(listItm).text(player.name + "|| " + player.soundIdent));
+            jqList.append(jQuery(listItm).html(player.name + "<span class='sound'>" + player.soundIdent + "</span>"));
         }
     });
 

@@ -107,6 +107,13 @@ input[type=text] {
   padding: 0.6rem;
   margin-bottom: 1rem;
 }
+#adminview #content .time,
+#adminview #content .sound {
+  font-size: 1rem;
+  float: right;
+  margin-left: 2rem;
+  color: #b3b3b3;
+}
 #adminview #content #control {
   min-width: 25%;
   display: flex;
@@ -119,6 +126,7 @@ input[type=text] {
 #adminview #content #control ol li {
   font-size: 1.3rem;
   padding: 0.5rem 0.5rem;
+  line-height: 1.6rem;
 }
 #adminview #content #control ol li:hover {
   background-color: #343f51;
@@ -127,11 +135,6 @@ input[type=text] {
   width: 1rem;
   content: " ";
   display: inline-block;
-}
-#adminview #content #control ol li .time {
-  float: right;
-  margin-left: 2rem;
-  color: #b3b3b3;
 }
 #playerview .startscreenstep {
   width: 100%;
@@ -153,7 +156,7 @@ input[type=text] {
   text-align: center;
 }
 #playerview .startscreenstep#step-sound input[type="radio"] {
-  visibility: hidden;
+  display: none;
 }
 #playerview .startscreenstep#step-sound input[type="radio"] + label {
   width: 4rem;
@@ -162,9 +165,27 @@ input[type=text] {
   align-items: center;
   display: inline-flex;
   margin: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #216583;
+  font-size: 0.7rem;
 }
 #playerview .startscreenstep#step-sound input[type="radio"]:checked + label {
   background-color: #216583;
+}
+#playerview .startscreenstep#step-play button {
+  background-color: #216583;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  font-size: 2rem;
+}
+#playerview .startscreenstep#step-play button:hover {
+  background-color: #17465a;
+}
+#playerview .startscreenstep#step-play button:active {
+  background-color: #0c2632;
+}
+#playerview .startscreenstep#step-play button:disabled {
+  background-color: #9c9c9c;
 }
 #playerview .startscreenstep.show {
   transform: translateX(0);
