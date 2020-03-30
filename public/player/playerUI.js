@@ -54,20 +54,18 @@ jQuery(function ()
     socket.on("sde-player-buzzstatechange", function (data)
     {
         console.log(data);
+        jQuery('#buzz').removeClass('win lose');
         jQuery('#buzz')[0].disabled = !data.enabled;
-        if (data.enabled) {
-            jQuery('#buzz').html('BUZZ!');
-        } else {
-            jQuery('#buzz').html('');
-        }
+
+        jQuery('#buzz').html(data.enabled ? 'BUZZ!' : 'Warte ...');
+
         if(data.win === true) {
-            console.log("win");
+            jQuery('#buzz').addClass('win');
+            jQuery('#buzz').html('Buzzer ausgelöst!');
         }
         else if(data.win === false) {
-            console.log("lose");
-        }
-        else {
-            console.log("go to waiting state");
+            jQuery('#buzz').addClass('lose');
+            jQuery('#buzz').html('Zu langsam!');
         }
     });
 
