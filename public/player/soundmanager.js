@@ -1,7 +1,7 @@
 jQuery(function () {
     var sounds = {
         awkestra: 'assets/sounds/Awkestra.mp3',
-        cena: 'assets/sounds/cenam4a.m4a',
+        cena: 'assets/sounds/cena.mp3',
         gasp: 'assets/sounds/Crowdgasp.mp3',
         error: 'assets/sounds/Error.mp3',
         fart: 'assets/sounds/Flatulenz.mp3',
@@ -16,25 +16,15 @@ jQuery(function () {
         ring: 'assets/sounds/Ring.mp3'
     };
 
-    var audioElements = {};
     for (let key in sounds) {
-        var audio = new Audio();
-        audio.src = '../'+sounds[key];
-        audio.type = 'audio/mpeg';
-        if (key === 'cena') {
-            audio.type = 'audio/mp4';
-        }
-        audioElements[key] = audio;
-
-        
         if (key === 'cena') {
             jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
-            +'<label for="' + key + '">' + key + '</label>');
-            //+'<audio id="' + key+'audio' + '" src="../' + sounds[key] + '" type="audio/mp4"></audio>');
+            +'<label for="' + key + '">' + key + '</label>'
+            +'<audio id="' + key+'audio' + '" src="../' + sounds[key] + '" type="audio/mp4"></audio>');
         } else {
             jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
-            +'<label for="' + key + '">' + key + '</label>');
-           // +'<audio id="' + key+'audio' + '" src="../' + sounds[key] + '" type="audio/mpeg"></audio>');
+            +'<label for="' + key + '">' + key + '</label>'
+            +'<audio id="' + key+'audio' + '" src="../' + sounds[key] + '" type="audio/mpeg"></audio>');
         }
     }
 
@@ -42,20 +32,62 @@ jQuery(function () {
                             || false;
 
     if (audiocontextplease) {
-        const audioContext = new audiocontextplease;
+        let audioContext;
+        var myBuffer;
+        // create a new AudioBufferSourceNode
+        var source;
+        if (!audioContext) {
+        jQuery('body').on('click', function() {
+            console.log('click');
+            audioContext = new audiocontextplease();
 
-        // get the audio elements
-       // const audioElements = jQuery('audio');
+            // get the audio elements
+            const audioElements = jQuery('audio');
 
-        //console.log(audioElements);
+            //console.log(audioElements);
 
-        // pass it into the audio context
-        for (let key in audioElements) {
-            //console.log(audioElements[key]);
-            if (audioElements[key] instanceof HTMLMediaElement) {
-                var mediaElement = audioContext.createMediaElementSource(audioElements[key]);
-                mediaElement.connect(audioContext.destination);
+            // pass it into the audio context
+            for (let key in audioElements) {
+                //console.log(audioElements[key]);
+                if (audioElements[key] instanceof HTMLMediaElement) {
+                    //var mediaElement = audioContext.createMediaElementSource(audioElements[key]);
+                    //mediaElement.connect(audioContext.destination);
+                }
             }
+
+            // create a new AudioBufferSourceNode
+            source = audioContext.createBufferSource();
+            source.connect(audioContext.destination);
+            
+            request = new XMLHttpRequest();
+            request.open('GET', 'http://192.168.178.49:3001/assets/sounds/cena.mp3', true);
+            request.responseType = 'arraybuffer';
+            request.addEventListener('load', bufferSound, false);
+            request.send();
+
+        
+            function bufferSound(event) {
+                var request = event.target;
+                var audioData = request.response;
+
+                audioContext.decodeAudioData(
+                    audioData,
+                    function(buffer) {
+                        source.buffer = buffer;
+                        myBuffer = buffer;
+
+                        source.connect(audioContext.destination);
+                        source.loop = false;
+                    },
+                    function(e){
+                        console.log("Error with decoding audio data" + e.err);
+                    }
+                );
+                //console.log(audioContext);
+                //var buffer = audioContext.createBuffer(request.response, false);
+                //myBuffer = buffer;
+            }
+        });
         }
 
         // select our play button
@@ -66,14 +98,28 @@ jQuery(function () {
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
             }
-            //var audioId = '#' + jQuery(this).attr('for') + 'audio';
-            //var audioElement = jQuery(this).siblings(audioId)[0];
-            var audioElement = audioElements[jQuery(this).attr('for')];
+            var audioId = '#' + jQuery(this).attr('for') + 'audio';
+            var audioElement = jQuery(this).siblings(audioId)[0];
             audioElement.load();
             audioElement.play();
         });
 
-        /* playButton.addEventListener('click', function() {
+/////////////
+
+        playButton.addEventListener('click', function() {
+
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            //source.buffer = myBuffer;
+            // play right now (0 seconds from now)
+            // can also pass audioContext.currentTime
+            source.start();
+            mySource = source;
+            //console.log(myBuffer);
+
+            return;
 
             // check if context is in suspended state (autoplay policy)
             if (audioContext.state === 'suspended') {
@@ -89,6 +135,6 @@ jQuery(function () {
                 this.dataset.playing = 'false';
             }
 
-        }, false); */
+        }, false);
     }
 });
