@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player CLient</title>
     <script src="../thirdparty/jquery-3.4.1.min.js"></script>
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="soundmanager.js"></script>
     <script src="playerUI.js"></script>
     <link rel="stylesheet" href="../assets/style.css">
 </head>
@@ -26,7 +27,12 @@
             <div id="step-sound" class="startscreenstep">
                 <div id="sound-grid">
                     <!-- Inputs added programmatically -->
+                    <!-- Audios added programmatically-->
                 </div>
+
+                <button id="playpause" data-playing="false" role="switch" aria-checked="false">
+                    <span>Play/Pause</span>
+                </button>
             
                 <button disabled id="step-sound-button">Select buzz sound</button>
             </div>
