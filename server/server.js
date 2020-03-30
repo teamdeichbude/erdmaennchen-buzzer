@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var conf = require('dotenv/config');
+var path = require('path');
 
 let { PlayerConnectionHandler } = require("./playerConnectionHandler");
 let { BuzzerController } = require("./buzzerController");
@@ -9,7 +11,7 @@ let { BuzzerController } = require("./buzzerController");
 const ConnectionHandler = new PlayerConnectionHandler();
 const BuzzerControl = new BuzzerController(ConnectionHandler);
 
-app.use(express.static('public')) //serving of static "client" files
+app.use(express.static(path.join(__dirname, '../public'))); //serving of static "client" files
 
 io.on('connection', function (socket)
 {
@@ -66,14 +68,10 @@ io.on('connection', function (socket)
       allPlayers: ConnectionHandler.Players
     });
   }
-
-
-
-
-
 });
 
-http.listen(3000, function ()
+http.listen(process.env.PORT, function ()
 {
-  console.log('listening on *:3000');
+  console.log(path.join(__dirname, '../public'));
+  console.log('listening on ' + process.env.PORT);
 });
