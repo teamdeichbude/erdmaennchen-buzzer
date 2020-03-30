@@ -16,7 +16,8 @@ class BuzzerController
         }
         if (player.canBuzz)
         {
-            this.setBuzzerState(player, false);
+            let win = this._buzzOrder.length === 0;
+            this.setBuzzerState(player, false, win);
             player.lastBuzzTime = Date.now();
             this._buzzOrder.push(player);
             console.log("player", player.name, "buzzed at", player.lastBuzzTime);
@@ -38,12 +39,12 @@ class BuzzerController
         }
     }
 
-    setBuzzerState(player, state)
+    setBuzzerState(player, state, win)
     {
         player.canBuzz = state;
         //   if(socket.id === playerID) {
         this.ConnectionHandler.getSocketById(player.id)
-        .emit("sde-player-buzzstatechange", { enabled: state , win: null});
+        .emit("sde-player-buzzstatechange", { enabled: state , win: win});
     }
 }
 

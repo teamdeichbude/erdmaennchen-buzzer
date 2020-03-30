@@ -45,6 +45,10 @@ class PlayerConnectionHandler
 
         let player = new Player(playerId, playerName, playerAudioIdent);
         this._players.push(player);
+
+        //init player with disabled buzzer
+        this.getSocketById(player.id)
+        .emit("sde-player-buzzstatechange", { enabled: false , win: null});
         console.log("player added");
     }
 
