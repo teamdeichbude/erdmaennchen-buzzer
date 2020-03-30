@@ -1,7 +1,7 @@
 jQuery(function () {
     var sounds = {
         awkestra: 'assets/sounds/Awkestra.mp3',
-        cena: 'assets/sounds/cena.mp3',
+        cena: 'assets/sounds/cenam4a.m4a',
         gasp: 'assets/sounds/Crowdgasp.mp3',
         error: 'assets/sounds/Error.mp3',
         fart: 'assets/sounds/Flatulenz.mp3',
@@ -16,10 +16,26 @@ jQuery(function () {
         ring: 'assets/sounds/Ring.mp3'
     };
 
+    var audioElements = {};
     for (let key in sounds) {
-        jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
-        +'<label for="' + key + '">' + key + '</label>'
-        +'<audio id="' + key+'audio' + '" src="../' + sounds[key] + '" type="audio/mpeg"></audio>');
+        var audio = new Audio();
+        audio.src = '../'+sounds[key];
+        audio.type = 'audio/mpeg';
+        if (key === 'cena') {
+            audio.type = 'audio/mp4';
+        }
+        audioElements[key] = audio;
+
+        
+        if (key === 'cena') {
+            jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
+            +'<label for="' + key + '">' + key + '</label>');
+            //+'<audio id="' + key+'audio' + '" src="../' + sounds[key] + '" type="audio/mp4"></audio>');
+        } else {
+            jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
+            +'<label for="' + key + '">' + key + '</label>');
+           // +'<audio id="' + key+'audio' + '" src="../' + sounds[key] + '" type="audio/mpeg"></audio>');
+        }
     }
 
     var audiocontextplease = window.AudioContext || window.webkitAudioContext // Safari and old versions of Chrome
@@ -29,7 +45,7 @@ jQuery(function () {
         const audioContext = new audiocontextplease;
 
         // get the audio elements
-        const audioElements = jQuery('audio');
+       // const audioElements = jQuery('audio');
 
         //console.log(audioElements);
 
@@ -50,8 +66,9 @@ jQuery(function () {
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
             }
-            var audioId = '#' + jQuery(this).attr('for') + 'audio';
-            var audioElement = jQuery(this).siblings(audioId)[0];
+            //var audioId = '#' + jQuery(this).attr('for') + 'audio';
+            //var audioElement = jQuery(this).siblings(audioId)[0];
+            var audioElement = audioElements[jQuery(this).attr('for')];
             audioElement.load();
             audioElement.play();
         });
