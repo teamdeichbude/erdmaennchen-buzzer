@@ -34,7 +34,7 @@ class BuzzerController
             }
         }
     }
-
+  
     activateAll()
     {
         this._buzzOrder = [];
