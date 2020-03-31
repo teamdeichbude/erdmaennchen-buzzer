@@ -22,11 +22,13 @@ jQuery(function ()
     })
 
     var socket = io();
+    var selectedSoud = "";
     jQuery('#step-sound-button').on("click", function (e)
     {
+        selectedSound = jQuery('input[type=radio]:checked').val();
         socket.emit('sde-player-connect', {
             playerName: jQuery('#teamname').val(),
-            playerAudio: jQuery('input[type=radio]:checked').val()
+            playerAudio: selectedSound
         });
     });
 
@@ -48,6 +50,13 @@ jQuery(function ()
         }
     });
 
+    socket.on("sde-player-buzzed", function(data) {
+        if (data.player.soundIdent !== "") {
+            playSound(data.player.soundIdent);
+        }
+        console.log(data);
+    });
+
     socket.on("sde-error", function (data)
     {
         console.error("sde error: " +  data.error);
@@ -56,7 +65,6 @@ jQuery(function ()
     jQuery('#buzz').on("click", function (e)
     {
         socket.emit('sde-player-buzzed', {
-
         });
     });
 });

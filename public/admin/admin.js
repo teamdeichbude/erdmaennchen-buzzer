@@ -36,6 +36,7 @@ jQuery(function ()
 
     jQuery("#activate").on("click", function ()
     {
+        jQuery("#buzzerOrder").html("");
         socket.emit("sde-admin-activate", true);
     });
 });

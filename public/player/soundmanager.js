@@ -1,3 +1,6 @@
+const allBuffers = {};
+let audioContext;
+
 jQuery(function () {
     var sounds = {
         awkestra: 'assets/sounds/Awkestra.mp3',
@@ -28,9 +31,6 @@ jQuery(function () {
 
     const audiocontextplease = window.AudioContext || window.webkitAudioContext // Safari and old versions of Chrome
                             || false;
-    let audioContext;
-    const allSources = {};
-
     
         jQuery('#step-name').on('click', function() {
             if (!audiocontextplease || audioContext !== undefined) {
@@ -59,15 +59,7 @@ jQuery(function () {
                 audioContext.decodeAudioData(
                     audioData,
                     function(buffer) {
-                        // create a new AudioBufferSourceNode
-                        var source;
-                        source = audioContext.createBufferSource();
-                        source.connect(audioContext.destination);
-                        source.buffer = buffer;
-
-                        source.connect(audioContext.destination);
-                        source.loop = false;
-                        allSources[request._key] = source;
+                        allBuffers[request._key] = buffer;
                     },
                     function(e){
                         console.log("Error with decoding audio data" + e.err);
@@ -78,6 +70,18 @@ jQuery(function () {
         
         jQuery('label').on('click', function(e) {
             var audioId = jQuery(this).attr('for');
-            allSources[audioId].start();
+            playSound(audioId);
         });
+
+        
 });
+
+function playSound(soundId) {
+    var source;
+    source = audioContext.createBufferSource();
+    source.connect(audioContext.destination);
+    source.buffer = allBuffers[soundId];
+
+    source.connect(audioContext.destination);
+    source.start();
+}
