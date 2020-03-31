@@ -16,11 +16,13 @@ class PlayerConnectionHandler
         return this._players;
     };
 
-    addSocket(socket) {
+    addSocket(socket)
+    {
         this._sockets.push(socket);
     }
 
-    getSocketById(id) {
+    getSocketById(id)
+    {
         return this._sockets.find(function (item)
         {
             return item.id === id;
@@ -48,7 +50,7 @@ class PlayerConnectionHandler
 
         //init player with disabled buzzer
         this.getSocketById(player.id)
-        .emit("sde-player-buzzstatechange", { enabled: false , win: null});
+            .emit("sde-player-buzzstatechange", { enabled: false, win: null });
         console.log("player added");
     }
 

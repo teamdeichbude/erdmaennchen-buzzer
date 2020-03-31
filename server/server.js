@@ -30,12 +30,14 @@ io.on('connection', function (socket)
 
   socket.on("sde-player-connect", function (data)
   {
-    try {
+    try
+    {
       ConnectionHandler.connectPlayer(socket.id, data.playerName, data.playerAudio)
     }
-    catch(e) {
+    catch (e)
+    {
       console.error(e);
-      socket.emit("sde-error", {error: e.message});
+      socket.emit("sde-error", { error: e.message });
     }
 
     //inform admin of playercount changed
@@ -44,12 +46,14 @@ io.on('connection', function (socket)
 
   socket.on("sde-player-buzzed", function (data)
   {
-    try {
+    try
+    {
       BuzzerControl.playerBuzzed(ConnectionHandler.getPlayerById(socket.id));
     }
-    catch(e) {
+    catch (e)
+    {
       console.error(e);
-      socket.emit("sde-error", {error: e.message});
+      socket.emit("sde-error", { error: e.message });
     }
   });
 
@@ -59,6 +63,27 @@ io.on('connection', function (socket)
     {
       BuzzerControl.activateAll();
     }
+  });
+
+  socket.on("sde-admin-activate", function (activate)
+  {
+    if (activate)
+    {
+      BuzzerControl.activateAll();
+    }
+  });
+
+  socket.on("sde-admin-deactivate", function (deactivate)
+  {
+    if (deactivate)
+    {
+      BuzzerControl.deactivateAll();
+    }
+  })
+
+  socket.on("sde-admin-toggleSingleBuzz", function (data)
+  {
+    BuzzerControl.singleBuzzMode = data.single;
   });
 
   function onPlayerConnectionsChanged()

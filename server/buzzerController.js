@@ -7,23 +7,30 @@ class BuzzerController
     {
         this.ConnectionHandler = connectionHandler;
         this._buzzOrder = [];
+        this.singleBuzzMode = false;
     }
 
     playerBuzzed(player)
     {
-        if(!player) {
+        if (!player)
+        {
             throw new Error("player cant buzz before being connected properly. Please connect with valid name first.")
         }
         if (player.canBuzz)
         {
             let win = this._buzzOrder.length === 0;
             this.setBuzzerState(player, false, win);
+            if (this.singleBuzzMode)
+            {
+                deactivateAll(player.id);
+            }
             player.lastBuzzTime = Date.now();
             this._buzzOrder.push(player);
             console.log("player", player.name, "buzzed at", player.lastBuzzTime);
-            if(this.BroadcastSocket) {
+            if (this.BroadcastSocket)
+            {
 
-                this.BroadcastSocket.emit("sde-player-buzzed", {player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime,"H:MM:ss.l")});
+                this.BroadcastSocket.emit("sde-player-buzzed", { player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime, "H:MM:ss.l") });
             }
         }
     }
@@ -40,12 +47,25 @@ class BuzzerController
         }
     }
 
+    deactivateAll(excludeId)
+    {
+        for (let p of this.ConnectionHandler.Players)
+        {
+            if (p.id !== excludeId)
+            {
+                this.setBuzzerState(p, false);
+                p.lastBuzzTime = null;
+                console.log("player", p.name, "deactivated");
+            }
+        }
+    }
+
     setBuzzerState(player, state, win)
     {
         player.canBuzz = state;
         //   if(socket.id === playerID) {
         this.ConnectionHandler.getSocketById(player.id)
-        .emit("sde-player-buzzstatechange", { enabled: state , win: win});
+            .emit("sde-player-buzzstatechange", { enabled: state, win: win });
     }
 }
 
