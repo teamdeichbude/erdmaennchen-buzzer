@@ -4,9 +4,13 @@
 
 jQuery(function ()
 {
+
+    let jqSingleBuzzCheckbox = jQuery('#singleBuzzer');
+
     let listItm = "<li>";
     console.log("admin init");
     var socket = io();
+    sendToggleSingleBuzzStatus();
 
     socket.on("sde-admin-playersChanged", function (data)
     {
@@ -28,7 +32,7 @@ jQuery(function ()
 
     socket.on("sde-player-buzzed", function (data)
     {
-        jQuery("#buzzerOrder").prepend(
+        jQuery("#buzzerOrder").append(
             jQuery(listItm)
                 .append([data.player.name], jQuery('<span class="time">').text(data.formattedTime))
         );
@@ -39,4 +43,11 @@ jQuery(function ()
         jQuery("#buzzerOrder").html("");
         socket.emit("sde-admin-activate", true);
     });
+
+    jqSingleBuzzCheckbox.on('change', sendToggleSingleBuzzStatus);
+
+    function sendToggleSingleBuzzStatus()
+    {
+        socket.emit("sde-admin-toggleSingleBuzz", {single: jqSingleBuzzCheckbox.is(":checked")});
+    }
 });

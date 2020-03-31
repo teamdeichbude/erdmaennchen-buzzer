@@ -22,7 +22,7 @@ class BuzzerController
             this.setBuzzerState(player, false, win);
             if (this.singleBuzzMode)
             {
-                deactivateAll(player.id);
+                this.deactivateAll(player.id, true);
             }
             player.lastBuzzTime = Date.now();
             this._buzzOrder.push(player);
@@ -47,13 +47,13 @@ class BuzzerController
         }
     }
 
-    deactivateAll(excludeId)
+    deactivateAll(excludeId, sendLose)
     {
         for (let p of this.ConnectionHandler.Players)
         {
             if (p.id !== excludeId)
             {
-                this.setBuzzerState(p, false);
+                this.setBuzzerState(p, false, !sendLose);
                 p.lastBuzzTime = null;
                 console.log("player", p.name, "deactivated");
             }

@@ -119,6 +119,19 @@ input[type=text] {
   display: flex;
   flex-direction: column;
 }
+#adminview #content #control .checkbox {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+#adminview #content #control .checkbox input {
+  margin-right: 1rem;
+  font-size: 5rem;
+}
+#adminview #content #control .checkbox label {
+  font-size: 1.3rem;
+}
 #adminview #content #control ol {
   list-style-position: inside;
   padding-left: 0;

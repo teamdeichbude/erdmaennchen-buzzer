@@ -65,14 +65,6 @@ io.on('connection', function (socket)
     }
   });
 
-  socket.on("sde-admin-activate", function (activate)
-  {
-    if (activate)
-    {
-      BuzzerControl.activateAll();
-    }
-  });
-
   socket.on("sde-admin-deactivate", function (deactivate)
   {
     if (deactivate)
