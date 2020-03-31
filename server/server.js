@@ -79,7 +79,7 @@ io.on('connection', function (socket)
     {
       BuzzerControl.deactivateAll();
     }
-  })
+  });
 
   socket.on("sde-admin-toggleSingleBuzz", function (data)
   {
