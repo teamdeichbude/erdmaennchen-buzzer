@@ -136,6 +136,9 @@ input[type=text] {
   content: " ";
   display: inline-block;
 }
+#playerview {
+  position: fixed;
+}
 #playerview .startscreenstep {
   width: 100%;
   height: 100%;

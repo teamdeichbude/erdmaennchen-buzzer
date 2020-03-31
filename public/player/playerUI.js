@@ -51,7 +51,7 @@ jQuery(function ()
     });
 
     socket.on("sde-player-buzzed", function(data) {
-        if (data.player.soundIdent !== "") {
+        if (data.player.soundIdent && data.isFirstBuzz) {
             playSound(data.player.soundIdent);
         }
         console.log(data);
@@ -64,7 +64,6 @@ jQuery(function ()
 
     jQuery('#buzz').on("click", function (e)
     {
-        socket.emit('sde-player-buzzed', {
-        });
+        socket.emit('sde-player-buzzed', {});
     });
 });
