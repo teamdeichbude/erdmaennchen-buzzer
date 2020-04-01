@@ -110,6 +110,10 @@ input[type=text] {
         align-content: center;
         display: flex;
 
+        @media (max-width: 768px) {
+            flex-direction: column;
+        }
+
         #playerlist {
             min-width: 20%;
             h2 {
@@ -126,6 +130,9 @@ input[type=text] {
                     padding: 0.6rem;
                     margin-bottom: 1rem;
                 }
+            }
+            @media (max-width: 768px) {
+                order:1;
             }
         }
 

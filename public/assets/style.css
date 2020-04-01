@@ -89,6 +89,11 @@ input[type=text] {
   align-content: center;
   display: flex;
 }
+@media (max-width: 768px) {
+  #adminview #content {
+    flex-direction: column;
+  }
+}
 #adminview #content #playerlist {
   min-width: 20%;
 }
@@ -106,6 +111,11 @@ input[type=text] {
   background-color: #343f51;
   padding: 0.6rem;
   margin-bottom: 1rem;
+}
+@media (max-width: 768px) {
+  #adminview #content #playerlist {
+    order: 1;
+  }
 }
 #adminview #content .time,
 #adminview #content .sound {
