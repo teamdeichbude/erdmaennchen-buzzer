@@ -1,3 +1,6 @@
+/*eslint-env browser */
+/*global jQuery, io */
+
 const allBuffers = {};
 let audioContext;
 
@@ -44,7 +47,7 @@ jQuery(function () {
             //console.log(audioContext);
             
             for (let key in sounds) {
-                request = new XMLHttpRequest();
+                let request = new XMLHttpRequest();
                 request.open('GET', '/' + sounds[key], true);
                 request.responseType = 'arraybuffer';
                 request._key = key;
@@ -85,3 +88,5 @@ function playSound(soundId) {
     source.connect(audioContext.destination);
     source.start();
 }
+
+window.playSound = playSound;

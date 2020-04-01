@@ -19,10 +19,10 @@ jQuery(function ()
 
     jQuery('label').on('click', function(e) {
         jQuery('#step-sound-button').prop('disabled', false);
-    })
+    });
 
     var socket = io();
-    var selectedSoud = "";
+    var selectedSound = "";
     jQuery('#step-sound-button').on("click", function (e)
     {
         selectedSound = jQuery('input[type=radio]:checked').val();
@@ -52,7 +52,7 @@ jQuery(function ()
 
     socket.on("sde-player-buzzed", function(data) {
         if (data.player.soundIdent && data.isFirstBuzz) {
-            playSound(data.player.soundIdent);
+            window.playSound(data.player.soundIdent);
         }
         console.log(data);
     });
