@@ -1,3 +1,11 @@
+.backgroundanimationwrapper {
+  height: 100vh;
+  position: absolute;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
 .hide {
   display: none;
 }
@@ -61,6 +69,7 @@ input[type=text] {
   font-size: 1rem;
   margin: 0;
   padding: 1.5rem 0 1rem 0;
+  z-index: 200;
 }
 @media (min-width: 768px) {
   #header {
@@ -83,6 +92,14 @@ input[type=text] {
   margin: auto;
   padding: 2rem 2rem;
   box-sizing: border-box;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s linear;
+}
+#content.show {
+  opacity: 1;
+  pointer-events: all;
 }
 #adminview #content {
   justify-content: space-evenly;

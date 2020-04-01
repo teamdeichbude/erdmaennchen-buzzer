@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player CLient</title>
-    <script src="../thirdparty/jquery-3.4.1.min.js"></script>
+    <script src="/thirdparty/pixi.min.js"></script>
+    <script src="/thirdparty/jquery-3.4.1.min.js"></script>
+    <script src="/thirdparty/tween.umd.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/player/backgroundAnimation.js"></script>
     <script src="/player/soundmanager.js"></script>
     <script src="/player/playerUI.js"></script>
+
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 
@@ -17,6 +21,8 @@
         <div id="header">
             <h1>Stokstaartje Buzzer</h1>
         </div>
+
+        <div class="backgroundanimationwrapper"></div>
 
         <div id="content">
             <div id="step-name" class="startscreenstep show">
