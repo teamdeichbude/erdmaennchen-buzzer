@@ -1,3 +1,5 @@
+/*eslint-env node*/
+
 const { Player: Player } = require("./player.js");
 
 class PlayerConnectionHandler
