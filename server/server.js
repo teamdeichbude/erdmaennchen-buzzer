@@ -15,6 +15,11 @@ const BuzzerControl = new BuzzerController(ConnectionHandler);
 
 app.use(express.static(path.join(__dirname, '../public'))); //serving of static "client" files
 
+app.get('/', function (req, res)
+{
+  res.sendFile(path.join(__dirname, '../public/player/index.html'));
+});
+
 io.on('connection', function (socket)
 {
 
