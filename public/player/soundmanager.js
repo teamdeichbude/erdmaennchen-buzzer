@@ -22,14 +22,32 @@ jQuery(function () {
         ring: 'assets/sounds/Ring.mp3'
     };
 
+    var soundEmojis = {
+        awkestra: '&#x1F31F',
+        cena: '&#x1F93C ',
+        gasp: '&#x1F631',
+        error: '&#x1F6AB',
+        fart: '&#x1F4A8',
+        horn: '&#x1F697',
+        hornstar: '&#x1F4E3',
+        marimba: '&#x1F514',
+        sheep: '&#x1F411',
+        goat: '&#x1F40F',
+        oof: '&#x1F4A5',
+        orchestra: '&#x1F3BB',
+        plop: '&#x1F37A',
+        ring: '&#x1F4DE'
+    };
+
     for (let key in sounds) {
-        if (key === 'cena') {
-            jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
-            +'<label for="' + key + '">' + key + '</label>');
-        } else {
-            jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
-            +'<label for="' + key + '">' + key + '</label>');
+        let content = key;
+        if (soundEmojis[key]) {
+            content = soundEmojis[key];
         }
+        
+            jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
+            +'<label for="' + key + '">' + content + '</label>');
+        
     }
 
     const audiocontextplease = window.AudioContext || window.webkitAudioContext // Safari and old versions of Chrome

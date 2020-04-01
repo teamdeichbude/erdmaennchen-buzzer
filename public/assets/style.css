@@ -193,6 +193,7 @@ ol li::before {
   }
 }
 #playerview .startscreenstep#step-sound #sound-grid {
+  padding-top: 4rem;
   padding-bottom: 1rem;
   text-align: center;
 }
@@ -213,7 +214,7 @@ ol li::before {
   margin: 0.5rem;
   border-radius: 5px;
   border: 1px solid #216583;
-  font-size: 0.7rem;
+  font-size: 1.5rem;
 }
 #playerview .startscreenstep#step-sound input[type="radio"]:checked + label {
   background-color: #216583;

@@ -18,6 +18,7 @@ jQuery(function ()
     });
 
     jQuery('label').on('click', function(e) {
+        jQuery('#step-sound-button').html('Bester Buzzer Sound ever, let\'s go!');
         jQuery('#step-sound-button').prop('disabled', false);
     });
 
