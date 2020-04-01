@@ -104,6 +104,37 @@ input[type=text] {
     box-sizing: border-box;
 }
 
+ol {
+    list-style-position: inside;
+    padding-left:0;
+    li {
+        font-size: @font-l;
+        padding:0.5rem 0.5rem;
+        line-height:1.6rem;
+        &:first-child {
+            color: @green;
+            span {
+                color: @green;
+            }
+        }
+        &:hover {
+            background-color: lighten(@bg-colour, 10%);
+        }
+        &::before {
+            width:1rem;
+            content: " ";
+            display: inline-block;
+        }
+    }
+}
+
+.time, .sound {
+    font-size: @font-m;
+    float: right;
+    margin-left:2rem;
+    color: darken(@font-colour-base, 20%);
+}
+
 #adminview {
     #content {
         justify-content: space-evenly;
@@ -136,13 +167,6 @@ input[type=text] {
             }
         }
 
-        .time, .sound {
-            font-size: @font-m;
-            float: right;
-            margin-left:2rem;
-            color: darken(@font-colour-base, 20%);
-        }
-
         #control {
             min-width: 25%;
             display:flex;
@@ -164,24 +188,6 @@ input[type=text] {
     
                 label {
                     font-size: @font-l;
-                }
-            }
-
-            ol {
-                list-style-position: inside;
-                padding-left:0;
-                li {
-                    font-size: @font-l;
-                    padding:0.5rem 0.5rem;
-                    line-height:1.6rem;
-                    &:hover {
-                        background-color: lighten(@bg-colour, 10%);
-                    }
-                    &::before {
-                        width:1rem;
-                        content: " ";
-                        display: inline-block;
-                    }
                 }
             }
         }

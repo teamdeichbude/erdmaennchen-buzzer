@@ -84,6 +84,36 @@ input[type=text] {
   padding: 2rem 2rem;
   box-sizing: border-box;
 }
+ol {
+  list-style-position: inside;
+  padding-left: 0;
+}
+ol li {
+  font-size: 1.3rem;
+  padding: 0.5rem 0.5rem;
+  line-height: 1.6rem;
+}
+ol li:first-child {
+  color: #3ca87f;
+}
+ol li:first-child span {
+  color: #3ca87f;
+}
+ol li:hover {
+  background-color: #343f51;
+}
+ol li::before {
+  width: 1rem;
+  content: " ";
+  display: inline-block;
+}
+.time,
+.sound {
+  font-size: 1rem;
+  float: right;
+  margin-left: 2rem;
+  color: #b3b3b3;
+}
 #adminview #content {
   justify-content: space-evenly;
   align-content: center;
@@ -117,13 +147,6 @@ input[type=text] {
     order: 1;
   }
 }
-#adminview #content .time,
-#adminview #content .sound {
-  font-size: 1rem;
-  float: right;
-  margin-left: 2rem;
-  color: #b3b3b3;
-}
 #adminview #content #control {
   min-width: 25%;
   display: flex;
@@ -144,23 +167,6 @@ input[type=text] {
 }
 #adminview #content #control .checkbox label {
   font-size: 1.3rem;
-}
-#adminview #content #control ol {
-  list-style-position: inside;
-  padding-left: 0;
-}
-#adminview #content #control ol li {
-  font-size: 1.3rem;
-  padding: 0.5rem 0.5rem;
-  line-height: 1.6rem;
-}
-#adminview #content #control ol li:hover {
-  background-color: #343f51;
-}
-#adminview #content #control ol li::before {
-  width: 1rem;
-  content: " ";
-  display: inline-block;
 }
 #playerview {
   position: fixed;

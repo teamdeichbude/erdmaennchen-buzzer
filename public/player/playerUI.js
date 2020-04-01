@@ -54,6 +54,11 @@ jQuery(function ()
         if (data.player.soundIdent && data.isFirstBuzz) {
             window.playSound(data.player.soundIdent);
         }
+        if (jQuery('#buzzList').children().length < 3) {
+            jQuery('#buzzList').append(
+                '<li>' + data.player.name + '<span class="time">' + data.formattedTime + '</span></li>'
+            );
+        }
         console.log(data);
     });
 
