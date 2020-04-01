@@ -177,9 +177,20 @@ input[type=text] {
   padding: 1rem;
   box-sizing: border-box;
 }
+@media (min-width: 768px) {
+  #playerview .startscreenstep {
+    justify-content: flex-start;
+    top: 12rem;
+  }
+}
 #playerview .startscreenstep#step-sound #sound-grid {
   padding-bottom: 1rem;
   text-align: center;
+}
+@media (min-width: 768px) {
+  #playerview .startscreenstep#step-sound #sound-grid {
+    width: 50%;
+  }
 }
 #playerview .startscreenstep#step-sound input[type="radio"] {
   display: none;
@@ -208,6 +219,11 @@ input[type=text] {
   padding-bottom: 4rem;
   font-size: 2rem;
 }
+@media (min-width: 768px) {
+  #playerview .startscreenstep#step-play button {
+    width: 30%;
+  }
+}
 #playerview .startscreenstep#step-play button:hover {
   background-color: #17465a;
 }
@@ -230,17 +246,7 @@ input[type=text] {
   transform: translateX(-100vw) !important;
 }
 @media (min-width: 768px) {
-  #playerview .startscreenstep {
-    justify-content: flex-start;
-    top: 12rem;
-  }
   #playerview input[type=text] {
     width: 50%;
-  }
-  #playerview #sound-grid {
-    width: 50%;
-  }
-  #playerview #step-play button {
-    width: 30%;
   }
 }

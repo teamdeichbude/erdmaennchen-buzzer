@@ -201,10 +201,17 @@ input[type=text] {
         top: 0;
         padding:1rem;
         box-sizing: border-box;
+        @media (min-width: 768px) {
+            justify-content: flex-start;
+            top: 12rem;
+        }
         &#step-sound {
             #sound-grid {
                 padding-bottom:1rem;
                 text-align: center;
+                @media (min-width: 768px) {
+                    width: 50%;
+                }
             }
             input[type="radio"] {
                 display: none;
@@ -232,6 +239,9 @@ input[type=text] {
                 padding-top: 4rem;
                 padding-bottom: 4rem;
                 font-size: @font-xxl;
+                @media (min-width: 768px) {
+                    width: 30%;
+                }
                 &:hover {
                     background-color: darken(@blue, 10%);
                 }
@@ -257,22 +267,8 @@ input[type=text] {
         }
     }
     @media (min-width: 768px) {
-        .startscreenstep {
-            justify-content: flex-start;
-            top: 12rem;
-        }
         input[type=text] {
             width:50%;
-        }
-
-        #sound-grid {
-            width: 50%;
-        }
-
-        #step-play {
-            button {
-                width: 30%;
-            }
         }
     }
 }
