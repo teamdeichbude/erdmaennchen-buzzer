@@ -192,7 +192,7 @@ input[type=text] {
         position: absolute;
         left: 0;
         top: 0;
-        padding:2rem;
+        padding:1rem;
         box-sizing: border-box;
         &#step-sound {
             #sound-grid {
@@ -218,6 +218,8 @@ input[type=text] {
             }
         }
         &#step-play {
+            top: 8rem;
+            justify-content: flex-start;
             button {
                 background-color: @blue;
                 padding-top: 4rem;
@@ -246,10 +248,24 @@ input[type=text] {
         &.hide {
             transform: translateX(-100vw) !important;
         }
-        @media (min-width: 768px) {
-            width: @body-width-desktop;
-            margin-left: auto;
-            margin-right: auto;
+    }
+    @media (min-width: 768px) {
+        .startscreenstep {
+            justify-content: flex-start;
+            top: 12rem;
+        }
+        input[type=text] {
+            width:50%;
+        }
+
+        #sound-grid {
+            width: 50%;
+        }
+
+        #step-play {
+            button {
+                width: 30%;
+            }
         }
     }
 }

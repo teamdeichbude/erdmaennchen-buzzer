@@ -164,7 +164,7 @@ input[type=text] {
   position: absolute;
   left: 0;
   top: 0;
-  padding: 2rem;
+  padding: 1rem;
   box-sizing: border-box;
 }
 #playerview .startscreenstep#step-sound #sound-grid {
@@ -187,6 +187,10 @@ input[type=text] {
 }
 #playerview .startscreenstep#step-sound input[type="radio"]:checked + label {
   background-color: #216583;
+}
+#playerview .startscreenstep#step-play {
+  top: 8rem;
+  justify-content: flex-start;
 }
 #playerview .startscreenstep#step-play button {
   background-color: #216583;
@@ -217,8 +221,16 @@ input[type=text] {
 }
 @media (min-width: 768px) {
   #playerview .startscreenstep {
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: flex-start;
+    top: 12rem;
+  }
+  #playerview input[type=text] {
+    width: 50%;
+  }
+  #playerview #sound-grid {
+    width: 50%;
+  }
+  #playerview #step-play button {
+    width: 30%;
   }
 }
