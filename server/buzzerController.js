@@ -1,3 +1,5 @@
+/*eslint-env node */
+
 
 const dateFormat = require('dateformat');
 
@@ -14,7 +16,7 @@ class BuzzerController
     {
         if (!player)
         {
-            throw new Error("player cant buzz before being connected properly. Please connect with valid name first.")
+            throw new Error("player cant buzz before being connected properly. Please connect with valid name first.");
         }
         if (player.canBuzz)
         {

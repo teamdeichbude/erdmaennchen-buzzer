@@ -1,3 +1,6 @@
+/*eslint-env node */
+
+
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
@@ -37,7 +40,7 @@ io.on('connection', function (socket)
   {
     try
     {
-      ConnectionHandler.connectPlayer(socket.id, data.playerName, data.playerAudio)
+      ConnectionHandler.connectPlayer(socket.id, data.playerName, data.playerAudio);
     }
     catch (e)
     {

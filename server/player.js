@@ -1,3 +1,5 @@
+/*eslint-env node */
+
 class Player
 {
     constructor(id, name, soundIdent)
