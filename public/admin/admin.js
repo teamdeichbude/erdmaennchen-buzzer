@@ -6,6 +6,7 @@ jQuery(function ()
 {
 
     let jqSingleBuzzCheckbox = jQuery('#singleBuzzer');
+    let activateButton = jQuery("#activate");
 
     let listItm = "<li>";
     console.log("admin init");
@@ -38,10 +39,17 @@ jQuery(function ()
         );
     });
 
-    jQuery("#activate").on("click", function ()
+    activateButton.on("click", function ()
     {
-        jQuery("#buzzerOrder").html("");
-        socket.emit("sde-admin-activate", true);
+        if (activateButton.hasClass('activate')) {
+            jQuery("#buzzerOrder").html("");
+            activateButton.html("Buzzer deaktivieren");
+        } else {
+            activateButton.html("Buzzer freischalten");
+        }
+        console.log("emit sde-admin-activate with " + activateButton.hasClass('activate'));
+        socket.emit("sde-admin-activate", activateButton.hasClass('activate'));
+        activateButton.toggleClass('activate deactivate');
     });
 
     jqSingleBuzzCheckbox.on('change', sendToggleSingleBuzzStatus);

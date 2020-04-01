@@ -38,7 +38,7 @@ jQuery(function ()
         jQuery('#buzz').removeClass('win lose');
         jQuery('#buzz')[0].disabled = !data.enabled;
 
-        jQuery('#buzz').html(data.enabled ? 'BUZZ!' : 'Warte ...');
+        jQuery('#buzz').html(data.enabled ? 'BUZZ!' : 'Bereit machen ...');
 
         if(data.win === true) {
             jQuery('#buzz').addClass('win');

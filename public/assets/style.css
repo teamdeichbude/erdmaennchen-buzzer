@@ -129,6 +129,9 @@ input[type=text] {
   display: flex;
   flex-direction: column;
 }
+#adminview #content #control button.deactivate {
+  background-color: #f76262;
+}
 #adminview #content #control .checkbox {
   display: flex;
   padding: 1rem;

@@ -24,14 +24,13 @@ class BuzzerController
             this.setBuzzerState(player, false, win);
             if (this.singleBuzzMode)
             {
-                this.deactivateAll(player.id, true);
+                this.deactivateAll(player.id, false);
             }
             player.lastBuzzTime = Date.now();
             this._buzzOrder.push(player);
             console.log("player", player.name, "buzzed at", player.lastBuzzTime);
             if (this.BroadcastSocket)
             {
-
                 this.BroadcastSocket.emit("sde-player-buzzed", { player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime, "H:MM:ss.l") });
             }
         }
@@ -49,13 +48,13 @@ class BuzzerController
         }
     }
 
-    deactivateAll(excludeId, sendLose)
+    deactivateAll(excludeId, sendWin = null)
     {
         for (let p of this.ConnectionHandler.Players)
         {
             if (p.id !== excludeId)
             {
-                this.setBuzzerState(p, false, !sendLose);
+                this.setBuzzerState(p, false, sendWin);
                 p.lastBuzzTime = null;
                 console.log("player", p.name, "deactivated");
             }
