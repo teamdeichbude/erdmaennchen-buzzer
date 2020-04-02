@@ -1,28 +1,26 @@
-
 /*eslint-env browser */
 /*global jQuery, io */
 
+let soundEmojis = window.soundEmojis; //defined in soundRegistry.js
+
 jQuery(function ()
 {
-
     let jqSingleBuzzCheckbox = jQuery('#singleBuzzer');
     let activateButton = jQuery("#activate");
 
     let listItm = "<li>";
-    console.log("admin init");
     var socket = io();
     sendToggleSingleBuzzStatus();
 
     socket.on("sde-admin-playersChanged", function (data)
     {
-        console.log(data);
         let jqList = jQuery("#allPlayersList");
         jqList.empty();
 
         for (let p in data.allPlayers)
         {
             let player = data.allPlayers[p];
-            jqList.append(jQuery(listItm).html(player.name + "<span class='sound'>" + player.soundIdent + "</span>"));
+            jqList.append(jQuery(listItm).html(player.name + "<span class='sound'>" + soundEmojis[player.soundIdent] + "</span>"));
         }
     });
 

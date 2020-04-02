@@ -1,6 +1,11 @@
 /*eslint-env browser */
 /*global jQuery, io */
 
+// eslint-disable-next-line no-undef
+if (!soundEmojis) {
+    let soundEmojis = window.soundEmojis; //defined in soundRegistry.js
+}
+
 jQuery(function ()
 {
     jQuery("#teamname").on('keyup blur', function(){
@@ -64,7 +69,8 @@ jQuery(function ()
         }
         if (jQuery('#buzzList').children().length < 3) {
             jQuery('#buzzList').append(
-                '<li>' + data.player.name + '<span class="time">' + data.formattedTime + '</span></li>'
+                '<li>' + soundEmojis[data.player.soundIdent] + ' ' + data.player.name
+                + '<span class="time">' + data.formattedTime + '</span></li>'
             );
         }
         console.log(data);

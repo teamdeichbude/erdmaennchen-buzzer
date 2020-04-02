@@ -141,6 +141,7 @@ ol li::before {
   background-color: #343f51;
   padding: 0.6rem;
   margin-bottom: 1rem;
+  line-height: 1rem;
 }
 @media (max-width: 768px) {
   #adminview #content #playerlist {
