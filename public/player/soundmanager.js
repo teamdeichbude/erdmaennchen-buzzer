@@ -44,10 +44,7 @@ jQuery(function () {
         if (soundEmojis[key]) {
             content = soundEmojis[key];
         }
-        
-            jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + key + '" value="' + key + '">'
-            +'<label for="' + key + '">' + content + '</label>');
-        
+        addSoundToSoundGrid(key, content);
     }
 
     const audiocontextplease = window.AudioContext || window.webkitAudioContext // Safari and old versions of Chrome
@@ -105,6 +102,11 @@ function playSound(soundId) {
 
     source.connect(audioContext.destination);
     source.start();
+}
+
+function addSoundToSoundGrid(soundId, labelContent) {
+    jQuery('#sound-grid').append(' <input type="radio" name="sound" id="' + soundId + '" value="' + soundId + '">'
+            +'<label for="' + soundId + '">' + labelContent + '</label>');
 }
 
 window.playSound = playSound;

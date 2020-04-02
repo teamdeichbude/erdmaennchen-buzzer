@@ -236,9 +236,13 @@ ol {
                     border: 1px solid @blue;
                     font-size: @font-xl;
                 }
-            }
-            input[type="radio"]:checked + label {
-                background-color: @blue;
+                &:checked + label {
+                    background-color: @blue;
+                }
+                &:disabled + label {
+                    background-color: shade(@bg-colour, 60%);
+                    opacity: 0.25;
+                }
             }
         }
         &#step-play {

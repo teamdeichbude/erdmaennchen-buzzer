@@ -11,8 +11,6 @@ class PlayerConnectionHandler
         this._sockets = [];
     }
 
-
-
     get Players()
     {
         return this._players;
@@ -62,7 +60,6 @@ class PlayerConnectionHandler
         {
             return item.id !== playerId;
         });
-        console.log('user disconnected');
     }
 }
 

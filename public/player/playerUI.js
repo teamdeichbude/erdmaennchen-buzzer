@@ -18,8 +18,11 @@ jQuery(function ()
     });
 
     jQuery('label').on('click', function(e) {
-        jQuery('#step-sound-button').html('Bester Buzzer Sound ever, let\'s go!');
-        jQuery('#step-sound-button').prop('disabled', false);
+        let soundInput= jQuery('#'+jQuery(this).attr('for'));
+        if (soundInput && soundInput.prop('disabled') !== true) {
+            jQuery('#step-sound-button').html('Bester Buzzer Sound ever, let\'s go!');
+            jQuery('#step-sound-button').prop('disabled', false);
+        }
     });
 
     var socket = io();
@@ -38,6 +41,10 @@ jQuery(function ()
         console.log(data);
         jQuery('#buzz').removeClass('win lose');
         jQuery('#buzz')[0].disabled = !data.enabled;
+
+        if (data.enabled) {
+            jQuery('#buzzList').html("");
+        }
 
         jQuery('#buzz').html(data.enabled ? 'BUZZ!' : 'Bereit machen ...');
 
@@ -61,6 +68,17 @@ jQuery(function ()
             );
         }
         console.log(data);
+    });
+
+    socket.on('sde-player-disableBuzzSounds', function (data) {
+        jQuery('input[name=sound]').each( function( i, el ) {
+            var soundInput = jQuery( el );
+            if(data.includes(soundInput.attr('id'))) {
+                soundInput.prop('disabled', true);
+            }else {
+                soundInput.prop('disabled', false);
+            }
+        });
     });
 
     socket.on("sde-error", function (data)
