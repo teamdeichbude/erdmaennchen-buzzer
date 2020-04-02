@@ -75,10 +75,15 @@ jQuery(function ()
             var soundInput = jQuery( el );
             if(data.includes(soundInput.attr('id'))) {
                 soundInput.prop('disabled', true);
+                soundInput.prop('checked', false);
             }else {
                 soundInput.prop('disabled', false);
             }
         });
+        if (jQuery('input:checked').length === 0) {
+            jQuery('#step-sound-button').html('Wähle einen Buzzer Sound!!');
+            jQuery('#step-sound-button').prop('disabled', true);
+        }
     });
 
     socket.on("sde-error", function (data)
