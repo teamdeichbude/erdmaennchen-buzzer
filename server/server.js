@@ -29,7 +29,8 @@ io.on('connection', function (socket)
   console.log('a user connected: ' + socket); //socket connected, but not registered as player, yet.
 
   ConnectionHandler.addSocket(socket);
-  sendDisabledBuzzSounds();
+  onPlayerConnectionsChanged(); //mainly in case the admin connected after players already joined
+  sendDisabledBuzzSounds(); //for players to receive which sounds can be selected
 
   socket.on('disconnect', function ()
   {
