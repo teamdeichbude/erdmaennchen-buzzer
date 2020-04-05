@@ -8,18 +8,17 @@ if (!soundEmojis) {
 
 jQuery(function ()
 {
+    let teamName;
+    let selectedSound;
+
     jQuery("#teamname").on('keyup blur', function(){
         jQuery('#step-name-button').prop('disabled', this.value.trim().length === 0);
     });
 
     jQuery('#step-name-button').on('click', function(e) {
+        teamName = jQuery('#teamname').val();
         jQuery('#step-name').addClass('hide');
         jQuery('#step-sound').addClass('show');
-    });
-
-    jQuery('#step-sound-button').on('click', function(e) {
-        jQuery('#step-sound').addClass('hide');
-        jQuery('#step-play').addClass('show');
     });
 
     jQuery('label').on('click', function(e) {
@@ -31,14 +30,22 @@ jQuery(function ()
     });
 
     var socket = io();
-    var selectedSound = "";
+    socket.on('disconnect', function() {
+        socket.open();
+    });
+    
+    socket.on('connect', function() {
+        if (teamName && selectedSound) {
+            sendPlayerData();
+        }
+    });
+
     jQuery('#step-sound-button').on("click", function (e)
     {
+        jQuery('#step-sound').addClass('hide');
+        jQuery('#step-play').addClass('show');
         selectedSound = jQuery('input[type=radio]:checked').val();
-        socket.emit('sde-player-connect', {
-            playerName: jQuery('#teamname').val(),
-            playerAudio: selectedSound
-        });
+        sendPlayerData();
     });
 
     socket.on("sde-player-buzzstatechange", function (data)
@@ -101,4 +108,11 @@ jQuery(function ()
     {
         socket.emit('sde-player-buzzed', {});
     });
+
+    function sendPlayerData() {
+        socket.emit('sde-player-connect', {
+            playerName: teamName,
+            playerAudio: selectedSound
+        });
+    }
 });
