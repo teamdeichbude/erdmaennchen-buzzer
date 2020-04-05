@@ -224,6 +224,10 @@ ol li::before {
   background-color: #0d1014;
   opacity: 0.25;
 }
+#playerview .startscreenstep#step-sound span.small {
+  text-align: center;
+  font-size: 0.7rem;
+}
 #playerview .startscreenstep#step-play {
   top: 8rem;
   justify-content: flex-start;
