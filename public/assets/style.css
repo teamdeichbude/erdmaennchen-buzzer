@@ -227,6 +227,7 @@ ol li::before {
 #playerview .startscreenstep#step-sound span.small {
   text-align: center;
   font-size: 0.7rem;
+  color: #9c9c9c;
 }
 #playerview .startscreenstep#step-play {
   top: 8rem;
