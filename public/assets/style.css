@@ -207,8 +207,8 @@ ol li::before {
   display: none;
 }
 #playerview .startscreenstep#step-sound input[type="radio"] + label {
-  width: 4rem;
-  height: 4rem;
+  width: 10vh;
+  height: 10vh;
   justify-content: center;
   align-items: center;
   display: inline-flex;
