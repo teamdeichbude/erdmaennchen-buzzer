@@ -7,6 +7,8 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var path = require('path');
 
+const adminIO = io.of('/admin');
+
 let { PlayerConnectionHandler } = require("./playerConnectionHandler");
 let { BuzzerController } = require("./buzzerController");
 
@@ -14,6 +16,7 @@ let takenBuzzSounds = [];
 
 const ConnectionHandler = new PlayerConnectionHandler();
 const BuzzerControl = new BuzzerController(ConnectionHandler);
+
 
 app.use(express.static(path.join(__dirname, '../public'))); //serving of static "client" files
 
@@ -110,6 +113,14 @@ io.on('connection', function (socket)
   function sendDisabledBuzzSounds() {
     io.emit('sde-player-disableBuzzSounds', takenBuzzSounds);
   }
+});
+
+adminIO.on('connection', function(socket){
+  console.log('admin connected');
+
+  socket.on('sde-admin-connect', function () {
+    console.log('admin here!');
+  });
 });
 
 http.listen(3001, function ()
