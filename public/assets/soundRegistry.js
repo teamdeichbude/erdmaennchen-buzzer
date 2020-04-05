@@ -12,9 +12,12 @@ window.sounds = {
     goat: 'assets/sounds/Mähndy.mp3',
     marimba: 'assets/sounds/Marimba.mp3',
     oof: 'assets/sounds/Oof.mp3',
-    orchestra: 'assets/sounds/Orchestra.mp3',
+    //orchestra: 'assets/sounds/Orchestra.mp3',
     plop: 'assets/sounds/plop.mp3',
-    ring: 'assets/sounds/Ring.mp3'
+    //ring: 'assets/sounds/Ring.mp3',
+    cat: 'assets/sounds/meow.mp3',
+    mario: 'assets/sounds/plumber.mp3',
+    hammer: 'assets/sounds/thor.mp3'
 };
 
 window.soundEmojis = {
@@ -31,5 +34,8 @@ window.soundEmojis = {
     oof: '&#x1F4A5',
     orchestra: '&#x1F3BB',
     plop: '&#x1F37A',
-    ring: '&#x1F4DE'
+    ring: '&#x1F4DE',
+    cat: '&#x1F431',
+    mario: '&#x1F3AE',
+    hammer: '&#x1F528'
 };
