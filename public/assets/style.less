@@ -137,8 +137,9 @@ ol {
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Old versions of Firefox */
+       -khtml-user-select: none;
+/* Konqueror HTML */
+-moz-user-select: none; /* Old versions of Firefox */
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
@@ -206,6 +207,7 @@ ol {
 #playerview {
     position:fixed;
     .startscreenstep {
+        .noselect();
         width: 100%;
         height: 100%;
         display: flex;
@@ -224,6 +226,7 @@ ol {
             top: 12rem;
         }
         &#step-sound {
+
             #sound-grid {
                 padding-top:4rem;
                 padding-bottom:1rem;
@@ -231,6 +234,9 @@ ol {
                 @media (min-width: 768px) {
                     width: 50%;
                 }
+            }
+            button {
+                flex-shrink: 0;
             }
             input[type="radio"] {
                 display: none;
