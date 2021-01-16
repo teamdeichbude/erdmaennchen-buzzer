@@ -144,6 +144,37 @@ ol {
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
   }
+
+/** parent needs position: relative **/
+.tooltip {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    position: absolute;
+    bottom: 180%;
+    z-index: 1;
+    left: 50%;
+    margin-left: -60px;
+    width: 100px;
+    background-color: darken(@grey, 20%);
+    color: #ffffff;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: @font-s;
+    letter-spacing: 0.5px;
+    &:after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: darken(@grey, 20%) transparent transparent transparent;
+    }
+}
+
 #adminview {
     #content {
         justify-content: space-evenly;
@@ -199,6 +230,11 @@ ol {
                         background-color: @grey;
                         margin-right: 10px;
                         vertical-align: middle;
+                        position: relative;
+                        &:hover .tooltip {
+                            visibility: visible;
+                            opacity: 1;
+                        }
                     }
                     &.enabled .buzzerState {
                         background-color: @green;

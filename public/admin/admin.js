@@ -21,7 +21,11 @@ jQuery(function ()
         {
             let player = data.allPlayers[p];
             let playerId = player._id.match('#(.*)')[1];
-            jqList.append(jQuery('<li id="' + playerId + '">').html('<span class="buzzerState disabled"></span>' + player.name + "<span class='sound'>" + soundEmojis[player.soundIdent] + "</span>"));
+            jqList.append(jQuery('<li id="' + playerId + '">').html(
+                '<span class="buzzerState disabled"><span class="tooltip">Buzzer deaktiviert</span></span>'
+                + player.name +
+                "<span class='sound'>" + soundEmojis[player.soundIdent] + "</span>"
+            ));
         }
     });
 
@@ -33,14 +37,18 @@ jQuery(function ()
         let playerId = data.playerId.match('#.*');
         let playerLi = jQuery(playerId[0]);
         playerLi.removeClass('enabled win lose');
+        playerLi.find('.tooltip').text('Buzzer deaktiviert');
         if (data.enabled || data.win === true) {
             playerLi.addClass('enabled');
+            playerLi.find('.tooltip').text('Buzzer aktiviert');
         }
         if (data.win === true) {
             playerLi.addClass('win');
+            playerLi.find('.tooltip').text('Erster Buzzer!');
         }
         if (data.win === false) {
             playerLi.addClass('lose');
+            playerLi.find('.tooltip').text('Zu spät');
         }
     });
 
@@ -65,7 +73,6 @@ jQuery(function ()
         } else {
             activateButton.html("Buzzer freischalten");
         }
-        console.log("emit sde-admin-activate with " + activateButton.hasClass('activate'));
         socket.emit("sde-admin-activate", activateButton.hasClass('activate'));
         activateButton.toggleClass('activate deactivate');
     });
