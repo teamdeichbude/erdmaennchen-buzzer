@@ -14,6 +14,7 @@ jQuery(function ()
 
     socket.on("sde-admin-playersChanged", function (data)
     {
+        jQuery('#playerCount').text(data.allPlayers.length);
         let jqList = jQuery("#allPlayersList");
         jqList.empty();
 
