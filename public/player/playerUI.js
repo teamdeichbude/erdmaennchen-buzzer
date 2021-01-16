@@ -11,7 +11,7 @@ jQuery(function ()
     let teamName;
     let selectedSound;
 
-    var socket = io();
+    var socket = io('/player');
     socket.on('disconnect', function()
     {
         socket.open();
@@ -67,13 +67,15 @@ jQuery(function ()
 
         jQuery('#buzz').html(data.enabled ? 'BUZZ!' : 'Bereit machen ...');
 
-        if(data.win === true) {
+        if (data.win === true) {
             jQuery('#buzz').addClass('win');
             jQuery('#buzz').html('Buzzer ausgelöst!');
-        } else if(data.win === false) {
+        } else if (data.win === false) {
             jQuery('#buzz').addClass('lose');
             jQuery('#buzz').html('Zu langsam!');
         }
+
+        socket.emit('sde-player-buzzstate-updated', data);
     });
 
     socket.on("sde-player-buzzed", function(data)

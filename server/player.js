@@ -13,8 +13,6 @@ class Player
     {
         return this._id;
     }
-
-    
 }
 
 module.exports.Player = Player;

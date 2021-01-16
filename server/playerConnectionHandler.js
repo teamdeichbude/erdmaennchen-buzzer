@@ -9,6 +9,7 @@ class PlayerConnectionHandler
     {
         this._players = [];
         this._sockets = [];
+        this._admin = null;
     }
 
     get Players()
@@ -19,6 +20,11 @@ class PlayerConnectionHandler
     addSocket(socket)
     {
         this._sockets.push(socket);
+    }
+
+    addAdmin(socket)
+    {
+        this._admin = socket;
     }
 
     getSocketById(id)
@@ -35,6 +41,11 @@ class PlayerConnectionHandler
         {
             return item.id === id;
         });
+    }
+
+    getAdminSocket()
+    {
+        return this._admin;
     }
 
     connectPlayer(playerId, playerName, playerAudioIdent)

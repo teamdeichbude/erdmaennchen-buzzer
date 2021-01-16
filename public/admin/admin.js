@@ -9,7 +9,7 @@ jQuery(function ()
     let activateButton = jQuery("#activate");
 
     let listItm = "<li>";
-    var socket = io();
+    var socket = io('/admin');
     sendToggleSingleBuzzStatus();
 
     socket.on("sde-admin-playersChanged", function (data)
@@ -20,9 +20,23 @@ jQuery(function ()
         for (let p in data.allPlayers)
         {
             let player = data.allPlayers[p];
-            jqList.append(jQuery(listItm).html(player.name + "<span class='sound'>" + soundEmojis[player.soundIdent] + "</span>"));
+            jqList.append(jQuery('<li id="' + player._id + '">').html('<span class="buzzerState"></span>' + player.name + "<span class='sound'>" + soundEmojis[player.soundIdent] + "</span>"));
         }
     });
+
+    socket.on('sde-admin-buzzerStateChagned', function(data) {
+
+    });
+
+    socket.on('sde-player-buzzstate-updated', function (data) {
+        console.log(data);
+        let playerId = data.playerId.match('#.*');
+        let playerLi = jQuery(playerId);
+        playerLi.removeClass('active');
+        if (data.enabled) {
+            playerLi.addClass('active');
+        }
+      });
 
     socket.on("sde-error", function (data)
     {

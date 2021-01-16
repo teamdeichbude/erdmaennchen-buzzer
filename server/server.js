@@ -1,6 +1,5 @@
 /*eslint-env node */
 
-
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
@@ -8,6 +7,7 @@ var io = require('socket.io')(http);
 var path = require('path');
 
 const adminIO = io.of('/admin');
+const playerIO = io.of('/player');
 
 let { PlayerConnectionHandler } = require("./playerConnectionHandler");
 let { BuzzerController } = require("./buzzerController");
@@ -25,11 +25,11 @@ app.get('/', function (req, res)
   res.sendFile(path.join(__dirname, '../public/player/index.html'));
 });
 
-io.on('connection', function (socket)
+BuzzerControl.playerBroadCast = playerIO;
+
+playerIO.on('connection', function (socket)
 {
-  BuzzerControl.BroadcastSocket = io;
-  
-  console.log('a user connected: ' + socket); //socket connected, but not registered as player, yet.
+  console.log('player connected'); //socket connected, but not registered as player, yet.
 
   ConnectionHandler.addSocket(socket);
   onPlayerConnectionsChanged(); //mainly in case the admin connected after players already joined
@@ -80,8 +80,36 @@ io.on('connection', function (socket)
     }
   });
 
+  socket.on('sde-player-buzzstate-updated', function (data) {
+    console.log(socket.id);
+    console.log(data);
+    data.playerId = socket.id;
+    adminIO.emit('sde-player-buzzstate-updated', data);
+  });
+
+  function onPlayerConnectionsChanged()
+  {
+    adminIO.emit("sde-admin-playersChanged", {
+      allPlayers: ConnectionHandler.Players
+    });
+  }
+
+  function sendDisabledBuzzSounds() {
+    playerIO.emit('sde-player-disableBuzzSounds', takenBuzzSounds);
+  }
+});
+
+adminIO.on('connection', function(socket){
+  console.log('admin connected');
+  ConnectionHandler.addAdmin(socket);
+
+  socket.on('sde-admin-connect', function () {
+    console.log('admin here!');
+  });
+
   socket.on("sde-admin-activate", function (activate)
   {
+    console.log('activate received');
     if (activate){
       BuzzerControl.activateAll();
     } else {
@@ -103,24 +131,11 @@ io.on('connection', function (socket)
     BuzzerControl.singleBuzzMode = data.single;
   });
 
-  function onPlayerConnectionsChanged()
-  {
-    io.emit("sde-admin-playersChanged", {
-      allPlayers: ConnectionHandler.Players
-    });
-  }
+  socket.on('sde-player-buzzstate-updated', function (data) {
+    console.log(data)
 
-  function sendDisabledBuzzSounds() {
-    io.emit('sde-player-disableBuzzSounds', takenBuzzSounds);
-  }
-});
-
-adminIO.on('connection', function(socket){
-  console.log('admin connected');
-
-  socket.on('sde-admin-connect', function () {
-    console.log('admin here!');
   });
+
 });
 
 http.listen(3001, function ()

@@ -10,6 +10,7 @@ class BuzzerController
         this.ConnectionHandler = connectionHandler;
         this._buzzOrder = [];
         this.singleBuzzMode = false;
+        this.playerBroadCast = null;
     }
 
     playerBuzzed(player)
@@ -29,9 +30,11 @@ class BuzzerController
             player.lastBuzzTime = Date.now();
             this._buzzOrder.push(player);
             console.log("player", player.name, "buzzed at", player.lastBuzzTime);
-            if (this.BroadcastSocket)
+            if (this.playerBroadCast)
             {
-                this.BroadcastSocket.emit("sde-player-buzzed", { player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime, "H:MM:ss.l") });
+                let data = { player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime, "H:MM:ss.l") };
+                this.playerBroadCast.emit("sde-player-buzzed", data);
+                this.ConnectionHandler.getAdminSocket().emit('sde-player-buzzed', data);
             }
         }
     }
