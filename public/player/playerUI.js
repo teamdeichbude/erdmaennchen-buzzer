@@ -53,6 +53,7 @@ jQuery(function ()
 
     jQuery('#buzz').on("click", function (e)
     {
+        window.resumeAudioContext();
         socket.emit('sde-player-buzzed', {});
     });
 
