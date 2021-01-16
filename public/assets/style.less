@@ -170,6 +170,25 @@ ol {
                     padding: 0.6rem;
                     margin-bottom: 1rem;
                     line-height: 1rem;
+                    &.win {
+                        background-color: darken(@green, 20%);
+                        border-color: darken(@green, 20%);
+                    }
+                    .buzzerState {
+                        display: inline-block;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 6px;
+                        background-color: @grey;
+                        margin-right: 10px;
+                        vertical-align: middle;
+                    }
+                    &.enabled .buzzerState {
+                        background-color: @green;
+                    }
+                    &.lose .buzzerState {
+                        background-color: @red;
+                    }
                 }
             }
             @media (max-width: 768px) {

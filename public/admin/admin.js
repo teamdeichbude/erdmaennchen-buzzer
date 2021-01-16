@@ -20,7 +20,8 @@ jQuery(function ()
         for (let p in data.allPlayers)
         {
             let player = data.allPlayers[p];
-            jqList.append(jQuery('<li id="' + player._id + '">').html('<span class="buzzerState"></span>' + player.name + "<span class='sound'>" + soundEmojis[player.soundIdent] + "</span>"));
+            let playerId = player._id.match('#(.*)')[1];
+            jqList.append(jQuery('<li id="' + playerId + '">').html('<span class="buzzerState disabled"></span>' + player.name + "<span class='sound'>" + soundEmojis[player.soundIdent] + "</span>"));
         }
     });
 
@@ -29,14 +30,19 @@ jQuery(function ()
     });
 
     socket.on('sde-player-buzzstate-updated', function (data) {
-        console.log(data);
         let playerId = data.playerId.match('#.*');
-        let playerLi = jQuery(playerId);
-        playerLi.removeClass('active');
-        if (data.enabled) {
-            playerLi.addClass('active');
+        let playerLi = jQuery(playerId[0]);
+        playerLi.removeClass('enabled win lose');
+        if (data.enabled || data.win === true) {
+            playerLi.addClass('enabled');
         }
-      });
+        if (data.win === true) {
+            playerLi.addClass('win');
+        }
+        if (data.win === false) {
+            playerLi.addClass('lose');
+        }
+    });
 
     socket.on("sde-error", function (data)
     {
