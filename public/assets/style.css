@@ -151,12 +151,48 @@ ol li::before {
 }
 #adminview #content #playerlist ul li {
   list-style: none;
-  border: 1px solid #485870;
+  border: 3px solid #485870;
   border-radius: 5px;
   background-color: #343f51;
   padding: 0.6rem;
   margin-bottom: 1rem;
   line-height: 1rem;
+}
+#adminview #content #playerlist ul li.win {
+  border-color: #215d46;
+  animation: pulsegreen 1.4s ease-out forwards;
+}
+@keyframes pulsegreen {
+  0% {
+    background-color: #343f51;
+  }
+  15% {
+    background-color: rgba(60, 168, 127, 0.9);
+  }
+  25% {
+    background-color: #343f51;
+  }
+  35% {
+    background-color: rgba(60, 168, 127, 0.6);
+  }
+  100% {
+    background-color: #343f51;
+  }
+}
+#adminview #content #playerlist ul li .buzzerState {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  background-color: #9c9c9c;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+#adminview #content #playerlist ul li.enabled .buzzerState {
+  background-color: #3ca87f;
+}
+#adminview #content #playerlist ul li.lose .buzzerState {
+  background-color: #f76262;
 }
 @media (max-width: 768px) {
   #adminview #content #playerlist {

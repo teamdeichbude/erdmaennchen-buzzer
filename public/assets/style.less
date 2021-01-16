@@ -164,15 +164,32 @@ ol {
                 padding: 0;
                 li {
                     list-style: none;
-                    border: 1px solid lighten(@bg-colour, 20%);
+                    border: 3px solid lighten(@bg-colour, 20%);
                     border-radius: 5px;
                     background-color: lighten(@bg-colour, 10%);
                     padding: 0.6rem;
                     margin-bottom: 1rem;
                     line-height: 1rem;
                     &.win {
-                        background-color: darken(@green, 20%);
                         border-color: darken(@green, 20%);
+                        animation: pulsegreen 1.4s ease-out forwards;
+                    }
+                    @keyframes pulsegreen {
+                        0% {
+                            background-color: lighten(@bg-colour, 10%);
+                        }
+                        15% {
+                            background-color: fade(@green, 90%);
+                        }
+                        25% {
+                            background-color: lighten(@bg-colour, 10%);
+                        }
+                        35% {
+                            background-color: fade(@green, 60%);
+                        }
+                        100% {
+                            background-color: lighten(@bg-colour, 10%);
+                        }
                     }
                     .buzzerState {
                         display: inline-block;
@@ -206,7 +223,7 @@ ol {
 
             .checkbox {
                 display:flex;
-                padding: 1rem; 
+                padding: 1rem;
                 align-items: center;
                 justify-content: center;
 
@@ -214,7 +231,7 @@ ol {
                     margin-right: 1rem;
                     font-size:5rem;
                 }
-    
+
                 label {
                     font-size: @font-l;
                 }
