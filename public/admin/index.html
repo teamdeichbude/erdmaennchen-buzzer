@@ -13,27 +13,36 @@
 </head>
 
 <body id="adminview">
-    <div id="header">
-        <h1>Spielleiter Dashboard</h1>
+<div id="header">
+    <h1>Spielleiter Dashboard</h1>
+</div>
+
+<div id="content">
+    <div id="playerlist">
+        <h2>Verbundene Spieler: <span id="playerCount">0</span></h2>
+        <ul id="allPlayersList">
+        </ul>
     </div>
 
-    <div id="content">
-        <div id="playerlist">
-            <h2>Verbundene Spieler: <span id="playerCount">0</span></h2>
-            <ul id="allPlayersList">
-            </ul>
-        </div>
-
-        <div id="control">
-            <button id="activate" class="activate">Buzzer freischalten</button>
-            <div class="checkbox">
-                <input type="checkbox" id="singleBuzzer" />
+    <div id="control">
+        <h3>Einstellungen</h3>
+        <form id="preferences">
+            <div class="radioGroup">
+                <input type="radio" name="buzzerType" id="buzzerTypeBuzzer" checked value="buzzerTypeBuzzer"/>
+                <label for="buzzerTypeBuzzer">Buzzer</label>
+                <input type="radio" name="buzzerType" id="buzzerTypeText" value="buzzerTypeText"/>
+                <label for="buzzerTypeText">Texteingabe</label>
+            </div>
+            <div class="checkbox" id="singleBuzzerPreference">
+                <input type="checkbox" id="singleBuzzer"/>
                 <label for="singleBuzzer">Nur einen Buzzer erlauben</label>
             </div>
-            <ol id="buzzerOrder">
-            </ol>
-        </div>
+        </form>
+        <button id="activate" class="activate">Buzzer freischalten</button>
+        <ol id="buzzerOrder">
+        </ol>
     </div>
+</div>
 
 </body>
 

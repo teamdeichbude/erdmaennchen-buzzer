@@ -7,6 +7,7 @@ jQuery(function ()
 {
     let jqSingleBuzzCheckbox = jQuery('#singleBuzzer');
     let activateButton = jQuery("#activate");
+    let buzzerMode = 'Buzzer';
 
     let listItm = "<li>";
     var socket = io('/admin');
@@ -68,20 +69,42 @@ jQuery(function ()
 
     activateButton.on("click", function ()
     {
-        if (activateButton.hasClass('activate')) {
-            jQuery("#buzzerOrder").html("");
-            activateButton.html("Buzzer deaktivieren");
-        } else {
-            activateButton.html("Buzzer freischalten");
-        }
-        socket.emit("sde-admin-activate", activateButton.hasClass('activate'));
         activateButton.toggleClass('activate deactivate');
+        setActivateButtonText();
+        let activate = activateButton.hasClass('deactivate');
+        socket.emit("sde-admin-activate", activate);
+        if (activate) {
+            $("#preferences :input").prop("disabled", true);
+        } else {
+            $("#preferences :input").prop("disabled", false);
+        }
     });
 
     jqSingleBuzzCheckbox.on('change', sendToggleSingleBuzzStatus);
 
+    $('input[type=radio][name=buzzerType]').change(function() {
+        if (this.value === 'buzzerTypeText') {
+            $('#singleBuzzerPreference').css('visibility', 'hidden');
+            buzzerMode = "Texteingabe";
+
+        } else {
+            buzzerMode = "Buzzer";
+            $('#singleBuzzerPreference').css('visibility', 'visible');
+        }
+        setActivateButtonText();
+    });
+
     function sendToggleSingleBuzzStatus()
     {
         socket.emit("sde-admin-toggleSingleBuzz", {single: jqSingleBuzzCheckbox.is(":checked")});
+    }
+
+    function setActivateButtonText() {
+        if (activateButton.hasClass('deactivate')) {
+            jQuery("#buzzerOrder").html("");
+            activateButton.html(buzzerMode + " deaktivieren");
+        } else {
+            activateButton.html(buzzerMode + " freischalten");
+        }
     }
 });

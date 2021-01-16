@@ -238,21 +238,25 @@ ol li::before {
   display: flex;
   flex-direction: column;
 }
+#adminview #content #control button {
+  margin-top: 2rem;
+}
 #adminview #content #control button.deactivate {
   background-color: #f76262;
 }
-#adminview #content #control .checkbox {
+#adminview #content #control .checkbox,
+#adminview #content #control .radioGroup {
   display: flex;
-  padding: 1rem;
-  align-items: center;
-  justify-content: center;
+  padding: 0.5rem;
 }
-#adminview #content #control .checkbox input {
-  margin-right: 1rem;
+#adminview #content #control .checkbox input,
+#adminview #content #control .radioGroup input {
+  margin-right: 0.6rem;
   font-size: 5rem;
 }
-#adminview #content #control .checkbox label {
-  font-size: 1.3rem;
+#adminview #content #control .checkbox label,
+#adminview #content #control .radioGroup label {
+  margin-right: 1rem;
 }
 #playerview {
   position: fixed;
