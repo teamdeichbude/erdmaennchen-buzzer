@@ -328,7 +328,15 @@ ol {
 #playerview {
     position:fixed;
     #textBuzzerInput {
-        display:none;
+        margin: 2rem 0;
+        // button should be thinner with text input:
+        &:not(.hidden) + button {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+        }
+        &.hidden {
+            display:none;
+        }
     }
 
     .startscreenstep {

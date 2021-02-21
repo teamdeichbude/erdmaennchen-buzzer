@@ -29,7 +29,6 @@ class BuzzerController
             }
             player.lastBuzzTime = Date.now();
             this._buzzOrder.push(player);
-            console.log("player", player.name, "buzzed at", player.lastBuzzTime);
             if (this.playerBroadCast)
             {
                 let data = { player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime, "H:MM:ss.l") };

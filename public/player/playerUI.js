@@ -68,7 +68,7 @@ jQuery(function ()
             jQuery('#buzzList').html("");
         } else if(data.win === null || data.win === undefined) {
             jQuery('#textBuzzerInput').val('');
-            jQuery('#textBuzzerInput').hide();
+            jQuery('#textBuzzerInput').addClass('hidden');
         }
 
         if (buzzMode === 'buzz') {
@@ -93,12 +93,12 @@ jQuery(function ()
 
     socket.on("sde-player-buzztypebuzz", function() {
         buzzMode = 'buzz';
-        jQuery('#textBuzzerInput').hide();
+        jQuery('#textBuzzerInput').addClass('hidden');
     });
 
     socket.on("sde-player-buzztypetext", function() {
         buzzMode = 'text';
-        jQuery('#textBuzzerInput').show();
+        jQuery('#textBuzzerInput').removeClass('hidden');
     });
 
     socket.on("sde-player-buzzed", function(data)

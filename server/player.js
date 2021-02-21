@@ -2,11 +2,12 @@
 
 class Player
 {
-    constructor(id, name, soundIdent)
+    constructor(id, name, soundIdent, canBuzz = false)
     {
         this.name = name;
         this.soundIdent = soundIdent;
         this._id = id;
+        this.canBuzz = canBuzz;
     }
 
     get id()

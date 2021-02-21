@@ -314,6 +314,13 @@ ol li::before {
   position: fixed;
 }
 #playerview #textBuzzerInput {
+  margin: 2rem 0;
+}
+#playerview #textBuzzerInput:not(.hidden) + button {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+#playerview #textBuzzerInput.hidden {
   display: none;
 }
 #playerview .startscreenstep {

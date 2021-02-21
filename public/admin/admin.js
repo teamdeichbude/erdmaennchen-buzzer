@@ -28,6 +28,7 @@ jQuery(function ()
                 + player.name +
                 "<span class='sound'>" + soundEmojis[player.soundIdent] + "</span>"
             ));
+            updatePlayerStatus('#'+playerId, player.canBuzz, undefined);
         }
     });
 
@@ -37,22 +38,28 @@ jQuery(function ()
 
     socket.on('sde-player-buzzstate-updated', function (data) {
         let playerId = data.playerId.match('#.*');
-        let playerLi = jQuery(playerId[0]);
+        updatePlayerStatus(playerId[0], data.enabled, data.win);
+        
+    });
+
+    function updatePlayerStatus(playerId, enabled, win) {
+        let playerLi = jQuery(playerId);
+
         playerLi.removeClass('enabled win lose');
         playerLi.find('.tooltip').text('Buzzer deaktiviert');
-        if (data.enabled || data.win === true) {
+        if (enabled || win === true) {
             playerLi.addClass('enabled');
             playerLi.find('.tooltip').text('Buzzer aktiviert');
         }
-        if (data.win === true) {
+        if (win === true) {
             playerLi.addClass('win');
             playerLi.find('.tooltip').text('Erster Buzzer!');
         }
-        if (data.win === false) {
+        if (win === false) {
             playerLi.addClass('lose');
             playerLi.find('.tooltip').text('Zu spät');
         }
-    });
+    }
 
     socket.on("sde-error", function (data)
     {

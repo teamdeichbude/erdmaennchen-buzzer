@@ -13,6 +13,8 @@ let { PlayerConnectionHandler } = require("./playerConnectionHandler");
 let { BuzzerController } = require("./buzzerController");
 
 let takenBuzzSounds = [];
+let buzzersActive = false;
+let buzzerType = 'buzzer'; // or 'text'
 
 const ConnectionHandler = new PlayerConnectionHandler();
 const BuzzerControl = new BuzzerController(ConnectionHandler);
@@ -32,7 +34,6 @@ playerIO.on('connection', function (socket)
   console.log('player connected'); //socket connected, but not registered as player, yet.
 
   ConnectionHandler.addSocket(socket);
-  onPlayerConnectionsChanged(); //mainly in case the admin connected after players already joined
   sendDisabledBuzzSounds(); //for players to receive which sounds can be selected
 
   socket.on('disconnect', function ()
@@ -53,7 +54,7 @@ playerIO.on('connection', function (socket)
   {
     try
     {
-      ConnectionHandler.connectPlayer(socket.id, data.playerName, data.playerAudio);
+      ConnectionHandler.connectPlayer(socket.id, data.playerName, data.playerAudio, buzzersActive, buzzerType);
       takenBuzzSounds.push(data.playerAudio);
       sendDisabledBuzzSounds();
     }
@@ -107,9 +108,17 @@ adminIO.on('connection', function(socket){
    */
   socket.on("sde-admin-activate", function (activate, buzzerMode)
   {
-    if (activate){
+    if (buzzerMode === 'buzzerTypeBuzzer') {
+      buzzerType = 'buzzer';
+    } else if (buzzerMode === 'buzzerTypeText') {
+      buzzerType = 'text';
+    }
+
+    if (activate) {
+      buzzersActive = true;
       BuzzerControl.activateAll(buzzerMode);
     } else {
+      buzzersActive = false;
       console.log('deactivate all buzzers');
       BuzzerControl.deactivateAll();
     }

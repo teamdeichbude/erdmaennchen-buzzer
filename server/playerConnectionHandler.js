@@ -48,7 +48,7 @@ class PlayerConnectionHandler
         return this._admin;
     }
 
-    connectPlayer(playerId, playerName, playerAudioIdent)
+    connectPlayer(playerId, playerName, playerAudioIdent, buzzerActive, buzzerType)
     {
         let exisitingPlayer = this.getPlayerById(playerId);
         if (exisitingPlayer)
@@ -56,13 +56,14 @@ class PlayerConnectionHandler
             throw new Error("player with id " + playerId + " already exists under the name:" + exisitingPlayer.name);
         }
 
-        let player = new Player(playerId, playerName, playerAudioIdent);
+        let player = new Player(playerId, playerName, playerAudioIdent, buzzerActive);
         this._players.push(player);
 
-        //init player with disabled buzzer
         this.getSocketById(player.id)
-            .emit("sde-player-buzzstatechange", { enabled: false, win: null });
-        console.log("player added");
+            .emit("sde-player-buzzstatechange", { enabled: buzzerActive, win: null});
+        if (buzzerType === 'text') {
+            this.getSocketById(player.id).emit("sde-player-buzztypetext");
+        }
     }
 
     disconnectPlayer(playerId)
