@@ -32,7 +32,7 @@ jQuery(function ()
     });
 
     socket.on('sde-admin-buzzerStateChagned', function(data) {
-
+       
     });
 
     socket.on('sde-player-buzzstate-updated', function (data) {
@@ -61,9 +61,13 @@ jQuery(function ()
 
     socket.on("sde-player-buzzed", function (data)
     {
+        let buzzerValue = data.formattedTime;
+        if (data.textInput !== undefined && data.textInput !== '') {
+            buzzerValue = data.textInput;
+        }
         jQuery("#buzzerOrder").append(
-            jQuery(listItm)
-                .append([data.player.name], jQuery('<span class="time">').text(data.formattedTime))
+            jQuery(listItm).attr('title', data.formattedTime)
+                .append([data.player.name], jQuery('<span class="time">').text(buzzerValue))
         );
     });
 
@@ -72,7 +76,7 @@ jQuery(function ()
         activateButton.toggleClass('activate deactivate');
         setActivateButtonText();
         let activate = activateButton.hasClass('deactivate');
-        socket.emit("sde-admin-activate", activate);
+        socket.emit("sde-admin-activate", activate, buzzerMode);
         if (activate) {
             $("#preferences :input").prop("disabled", true);
         } else {
@@ -83,15 +87,7 @@ jQuery(function ()
     jqSingleBuzzCheckbox.on('change', sendToggleSingleBuzzStatus);
 
     $('input[type=radio][name=buzzerType]').change(function() {
-        if (this.value === 'buzzerTypeText') {
-            $('#singleBuzzerPreference').css('visibility', 'hidden');
-            buzzerMode = "Texteingabe";
-
-        } else {
-            buzzerMode = "Buzzer";
-            $('#singleBuzzerPreference').css('visibility', 'visible');
-        }
-        setActivateButtonText();
+        buzzerMode = this.value;
     });
 
     function sendToggleSingleBuzzStatus()

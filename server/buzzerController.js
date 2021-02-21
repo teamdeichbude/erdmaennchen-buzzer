@@ -13,7 +13,7 @@ class BuzzerController
         this.playerBroadCast = null;
     }
 
-    playerBuzzed(player)
+    playerBuzzed(player, textInput)
     {
         if (!player)
         {
@@ -34,7 +34,7 @@ class BuzzerController
             {
                 let data = { player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime, "H:MM:ss.l") };
                 this.playerBroadCast.emit("sde-player-buzzed", data);
-                this.ConnectionHandler.getAdminSocket().emit('sde-player-buzzed', data);
+                this.ConnectionHandler.getAdminSocket().emit('sde-player-buzzed', {...data, 'textInput': textInput});
             }
         }
     }

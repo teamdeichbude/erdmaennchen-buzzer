@@ -67,11 +67,11 @@ playerIO.on('connection', function (socket)
     onPlayerConnectionsChanged();
   });
 
-  socket.on("sde-player-buzzed", function (data)
+  socket.on("sde-player-buzzed", function (textInput)
   {
     try
     {
-      BuzzerControl.playerBuzzed(ConnectionHandler.getPlayerById(socket.id));
+      BuzzerControl.playerBuzzed(ConnectionHandler.getPlayerById(socket.id), textInput);
     }
     catch (e)
     {
@@ -87,13 +87,6 @@ playerIO.on('connection', function (socket)
     adminIO.emit('sde-player-buzzstate-updated', data);
   });
 
-  function onPlayerConnectionsChanged()
-  {
-    adminIO.emit("sde-admin-playersChanged", {
-      allPlayers: ConnectionHandler.Players
-    });
-  }
-
   function sendDisabledBuzzSounds() {
     playerIO.emit('sde-player-disableBuzzSounds', takenBuzzSounds);
   }
@@ -102,6 +95,8 @@ playerIO.on('connection', function (socket)
 adminIO.on('connection', function(socket){
   console.log('admin connected');
   ConnectionHandler.addAdmin(socket);
+
+  onPlayerConnectionsChanged(); //mainly in case the admin connected after players already joined
 
   socket.on('sde-admin-connect', function () {
     console.log('admin here!');
@@ -139,6 +134,13 @@ adminIO.on('connection', function(socket){
   });
 
 });
+
+function onPlayerConnectionsChanged()
+  {
+    adminIO.emit("sde-admin-playersChanged", {
+      allPlayers: ConnectionHandler.Players
+    });
+  }
 
 http.listen(3001, function ()
 {
