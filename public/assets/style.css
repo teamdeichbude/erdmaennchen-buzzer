@@ -247,16 +247,34 @@ ol li::before {
 #adminview #content #control .checkbox,
 #adminview #content #control .radioGroup {
   display: flex;
+  justify-content: space-around;
   padding: 0.5rem;
 }
 #adminview #content #control .checkbox input,
 #adminview #content #control .radioGroup input {
-  margin-right: 0.6rem;
-  font-size: 5rem;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  opacity: 0;
 }
 #adminview #content #control .checkbox label,
 #adminview #content #control .radioGroup label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-right: 1rem;
+}
+#adminview #content #control .checkbox label .radioImage,
+#adminview #content #control .radioGroup label .radioImage {
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 10px 25px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+#adminview #content #control .checkbox input:checked + label .radioImage,
+#adminview #content #control .radioGroup input:checked + label .radioImage {
+  background-color: rgba(255, 255, 255, 0.6);
 }
 #playerview {
   position: fixed;

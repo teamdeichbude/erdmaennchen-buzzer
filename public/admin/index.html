@@ -25,20 +25,25 @@
     </div>
 
     <div id="control">
-        <h3>Einstellungen</h3>
         <form id="preferences">
             <div class="radioGroup">
                 <input type="radio" name="buzzerType" id="buzzerTypeBuzzer" checked value="buzzerTypeBuzzer"/>
-                <label for="buzzerTypeBuzzer">Buzzer</label>
+                <label for="buzzerTypeBuzzer">
+                    <img class="radioImage" src="../assets/img/buzzer.png">
+                    Buzzer
+                </label>
                 <input type="radio" name="buzzerType" id="buzzerTypeText" value="buzzerTypeText"/>
-                <label for="buzzerTypeText">Texteingabe</label>
+                <label for="buzzerTypeText">
+                    <img class="radioImage" src="../assets/img/buzzer-text.png">
+                    Text
+                </label>
             </div>
-            <div class="checkbox" id="singleBuzzerPreference">
+            <div class="checkbox" id="singleBuzzerPreference" style="display:none;">
                 <input type="checkbox" id="singleBuzzer"/>
                 <label for="singleBuzzer">Nur einen Buzzer erlauben</label>
             </div>
         </form>
-        <button id="activate" class="activate">Buzzer freischalten</button>
+        <button id="activate" class="activate">Freischalten</button>
         <ol id="buzzerOrder">
         </ol>
     </div>

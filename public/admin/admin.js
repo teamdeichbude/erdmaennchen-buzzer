@@ -102,9 +102,9 @@ jQuery(function ()
     function setActivateButtonText() {
         if (activateButton.hasClass('deactivate')) {
             jQuery("#buzzerOrder").html("");
-            activateButton.html(buzzerMode + " deaktivieren");
+            activateButton.html("Deaktivieren");
         } else {
-            activateButton.html(buzzerMode + " freischalten");
+            activateButton.html("Freischalten");
         }
     }
 });

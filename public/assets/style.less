@@ -262,14 +262,32 @@ ol {
 
             .checkbox, .radioGroup {
                 display:flex;
+                justify-content: space-around;
                 padding: 0.5rem;
 
                 input {
-                    margin-right: 0.6rem;
-                    font-size:5rem;
+                    position:absolute;
+                    top: -5px;
+                    left: -5px;
+                    opacity: 0;
                 }
+            
                 label {
+                    display:flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
                     margin-right: 1rem;
+                    .radioImage {
+                        background-color: rgba(255,255,255, 0.4);
+                        padding: 10px 25px;
+                        border-radius: 5px;
+                        margin-bottom: 1rem;
+                    }
+                }
+
+                input:checked + label .radioImage {
+                    background-color: rgba(255,255,255, 0.6);
                 }
             }
         }
