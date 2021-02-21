@@ -256,13 +256,6 @@ ol li::before {
   justify-content: space-around;
   padding: 0.5rem;
 }
-#adminview #content #control #preferences .checkbox input,
-#adminview #content #control #preferences .radioGroup input {
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  opacity: 0;
-}
 #adminview #content #control #preferences .checkbox label,
 #adminview #content #control #preferences .radioGroup label {
   display: flex;
@@ -270,24 +263,52 @@ ol li::before {
   justify-content: center;
   align-items: center;
   margin-right: 1rem;
-}
-#adminview #content #control #preferences .checkbox label .radioImage,
-#adminview #content #control #preferences .radioGroup label .radioImage {
-  background-color: rgba(255, 255, 255, 0.4);
-  padding: 10px 25px;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0);
   transition: all 0.3s ease-out;
 }
-#adminview #content #control #preferences .checkbox label .radioImage:hover,
-#adminview #content #control #preferences .radioGroup label .radioImage:hover {
-  border-color: white;
+#adminview #content #control #preferences .checkbox label .radioImageContainer,
+#adminview #content #control #preferences .radioGroup label .radioImageContainer {
+  padding: 1rem 2.5rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-out;
+  border: 2px solid #216583;
+}
+#adminview #content #control #preferences .checkbox label .radioImageContainer:hover,
+#adminview #content #control #preferences .radioGroup label .radioImageContainer:hover {
+  border-color: #b6dced;
+}
+#adminview #content #control #preferences .checkbox label .radioImageContainer .radioImage,
+#adminview #content #control #preferences .radioGroup label .radioImageContainer .radioImage {
+  background-color: #216583;
+  border-radius: 2px;
+  border: 2px solid rgba(255, 255, 255, 0);
+}
+#adminview #content #control #preferences .checkbox input,
+#adminview #content #control #preferences .radioGroup input {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  opacity: 0;
+}
+#adminview #content #control #preferences .checkbox input:checked + label .radioImageContainer,
+#adminview #content #control #preferences .radioGroup input:checked + label .radioImageContainer {
+  background-color: #216583;
+}
+#adminview #content #control #preferences .checkbox input:checked + label .radioImageContainer:hover,
+#adminview #content #control #preferences .radioGroup input:checked + label .radioImageContainer:hover {
+  border-color: #216583;
 }
 #adminview #content #control #preferences .checkbox input:checked + label .radioImage,
 #adminview #content #control #preferences .radioGroup input:checked + label .radioImage {
-  background-color: rgba(255, 255, 255, 0.6);
-  border-color: white;
+  border-color: #202732;
+}
+#adminview #content #control #preferences .checkbox input:disabled:not(:checked) + label,
+#adminview #content #control #preferences .radioGroup input:disabled:not(:checked) + label {
+  opacity: 0.6;
+}
+#adminview #content #control #preferences .checkbox input:disabled:not(:checked) + label .radioImageContainer,
+#adminview #content #control #preferences .radioGroup input:disabled:not(:checked) + label .radioImageContainer {
+  border-color: #216583;
 }
 #playerview {
   position: fixed;
