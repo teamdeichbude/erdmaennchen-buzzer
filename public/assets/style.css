@@ -111,7 +111,7 @@ ol li::before {
 .sound {
   font-size: 1rem;
   float: right;
-  margin-left: 2rem;
+  margin-left: 3rem;
   color: #b3b3b3;
 }
 .noselect {
@@ -159,9 +159,8 @@ ol li::before {
   border-color: #696969 transparent transparent transparent;
 }
 #adminview #content {
-  justify-content: space-evenly;
-  align-content: center;
   display: flex;
+  width: 75%;
 }
 @media (max-width: 768px) {
   #adminview #content {
@@ -169,7 +168,8 @@ ol li::before {
   }
 }
 #adminview #content #playerlist {
-  min-width: 20%;
+  min-width: 25%;
+  margin-right: 10%;
 }
 #adminview #content #playerlist h2 {
   margin-top: 0.5rem;
@@ -234,28 +234,94 @@ ol li::before {
   }
 }
 #adminview #content #control {
+  width: 100%;
   min-width: 25%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+#adminview #content #control button {
+  margin-top: 2rem;
+  width: 24rem;
 }
 #adminview #content #control button.deactivate {
   background-color: #f76262;
 }
-#adminview #content #control .checkbox {
+#adminview #content #control #preferences {
+  width: 24rem;
+}
+#adminview #content #control #preferences .checkbox,
+#adminview #content #control #preferences .radioGroup {
   display: flex;
-  padding: 1rem;
-  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem;
+}
+#adminview #content #control #preferences .checkbox label,
+#adminview #content #control #preferences .radioGroup label {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-}
-#adminview #content #control .checkbox input {
+  align-items: center;
   margin-right: 1rem;
-  font-size: 5rem;
+  transition: all 0.3s ease-out;
 }
-#adminview #content #control .checkbox label {
-  font-size: 1.3rem;
+#adminview #content #control #preferences .checkbox label .radioImageContainer,
+#adminview #content #control #preferences .radioGroup label .radioImageContainer {
+  padding: 1rem 2.5rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-out;
+  border: 2px solid #216583;
+}
+#adminview #content #control #preferences .checkbox label .radioImageContainer:hover,
+#adminview #content #control #preferences .radioGroup label .radioImageContainer:hover {
+  border-color: #b6dced;
+}
+#adminview #content #control #preferences .checkbox label .radioImageContainer .radioImage,
+#adminview #content #control #preferences .radioGroup label .radioImageContainer .radioImage {
+  background-color: #216583;
+  border-radius: 2px;
+  border: 2px solid rgba(255, 255, 255, 0);
+}
+#adminview #content #control #preferences .checkbox input,
+#adminview #content #control #preferences .radioGroup input {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  opacity: 0;
+}
+#adminview #content #control #preferences .checkbox input:checked + label .radioImageContainer,
+#adminview #content #control #preferences .radioGroup input:checked + label .radioImageContainer {
+  background-color: #216583;
+}
+#adminview #content #control #preferences .checkbox input:checked + label .radioImageContainer:hover,
+#adminview #content #control #preferences .radioGroup input:checked + label .radioImageContainer:hover {
+  border-color: #216583;
+}
+#adminview #content #control #preferences .checkbox input:checked + label .radioImage,
+#adminview #content #control #preferences .radioGroup input:checked + label .radioImage {
+  border-color: #202732;
+}
+#adminview #content #control #preferences .checkbox input:disabled:not(:checked) + label,
+#adminview #content #control #preferences .radioGroup input:disabled:not(:checked) + label {
+  opacity: 0.6;
+}
+#adminview #content #control #preferences .checkbox input:disabled:not(:checked) + label .radioImageContainer,
+#adminview #content #control #preferences .radioGroup input:disabled:not(:checked) + label .radioImageContainer {
+  border-color: #216583;
 }
 #playerview {
   position: fixed;
+}
+#playerview #textBuzzerInput {
+  margin: 2rem 0;
+}
+#playerview #textBuzzerInput:not(.hidden) + button {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+#playerview #textBuzzerInput.hidden {
+  display: none;
 }
 #playerview .startscreenstep {
   -webkit-touch-callout: none;

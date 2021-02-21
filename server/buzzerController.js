@@ -13,7 +13,7 @@ class BuzzerController
         this.playerBroadCast = null;
     }
 
-    playerBuzzed(player)
+    playerBuzzed(player, textInput)
     {
         if (!player)
         {
@@ -29,22 +29,22 @@ class BuzzerController
             }
             player.lastBuzzTime = Date.now();
             this._buzzOrder.push(player);
-            console.log("player", player.name, "buzzed at", player.lastBuzzTime);
             if (this.playerBroadCast)
             {
                 let data = { player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateFormat(player.lastBuzzTime, "H:MM:ss.l") };
                 this.playerBroadCast.emit("sde-player-buzzed", data);
-                this.ConnectionHandler.getAdminSocket().emit('sde-player-buzzed', data);
+                this.ConnectionHandler.getAdminSocket().emit('sde-player-buzzed', {...data, 'textInput': textInput});
             }
         }
     }
   
-    activateAll()
+    activateAll(buzzerType)
     {
         this._buzzOrder = [];
 
         for (let p of this.ConnectionHandler.Players)
         {
+            this.setBuzzerType(p, buzzerType);
             this.setBuzzerState(p, true);
             p.lastBuzzTime = null;
             console.log("player", p.name, "activated");
@@ -62,6 +62,17 @@ class BuzzerController
                 console.log("player", p.name, "deactivated");
             }
         }
+    }
+
+    setBuzzerType(player, mode) {
+        let emitEventName = "sde-player-buzztypebuzz";
+        if (mode === 'buzzerTypeText') {
+            emitEventName = "sde-player-buzztypetext"
+        }
+
+        this.ConnectionHandler
+            .getSocketById(player.id)
+            .emit(emitEventName);
     }
 
     setBuzzerState(player, state, win)
