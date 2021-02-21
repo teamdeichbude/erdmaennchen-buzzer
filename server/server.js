@@ -107,11 +107,13 @@ adminIO.on('connection', function(socket){
     console.log('admin here!');
   });
 
-  socket.on("sde-admin-activate", function (activate)
+  /**
+   * buzzerMode is one of "buzzerTypeBuzzer" or "buzzerTypeText"
+   */
+  socket.on("sde-admin-activate", function (activate, buzzerMode)
   {
-    console.log('activate received');
     if (activate){
-      BuzzerControl.activateAll();
+      BuzzerControl.activateAll(buzzerMode);
     } else {
       console.log('deactivate all buzzers');
       BuzzerControl.deactivateAll();

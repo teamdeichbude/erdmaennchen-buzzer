@@ -39,12 +39,13 @@ class BuzzerController
         }
     }
   
-    activateAll()
+    activateAll(buzzerType)
     {
         this._buzzOrder = [];
 
         for (let p of this.ConnectionHandler.Players)
         {
+            this.setBuzzerType(p, buzzerType);
             this.setBuzzerState(p, true);
             p.lastBuzzTime = null;
             console.log("player", p.name, "activated");
@@ -62,6 +63,17 @@ class BuzzerController
                 console.log("player", p.name, "deactivated");
             }
         }
+    }
+
+    setBuzzerType(player, mode) {
+        let emitEventName = "sde-player-buzztypebuzz";
+        if (mode === 'buzzerTypeText') {
+            emitEventName = "sde-player-buzztypetext"
+        }
+
+        this.ConnectionHandler
+            .getSocketById(player.id)
+            .emit(emitEventName);
     }
 
     setBuzzerState(player, state, win)

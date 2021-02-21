@@ -279,6 +279,9 @@ ol li::before {
 #playerview {
   position: fixed;
 }
+#playerview #textBuzzerInput {
+  display: none;
+}
 #playerview .startscreenstep {
   -webkit-touch-callout: none;
   /* iOS Safari */
