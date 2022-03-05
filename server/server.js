@@ -3,7 +3,11 @@
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(http, {
+    cors: {    
+      origin: "*",    
+      methods: ["GET", "POST"]  
+    }});
 var path = require('path');
 
 const adminIO = io.of('/admin');
@@ -138,7 +142,7 @@ adminIO.on('connection', function(socket){
   });
 
   socket.on('sde-player-buzzstate-updated', function (data) {
-    console.log(data)
+    console.log(data);
 
   });
 
