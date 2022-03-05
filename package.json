@@ -11,11 +11,10 @@
     "url": "deichbu@gitea.deichbu.de:luca/erdmaennchen-buzzer.git"
   },
   "keywords": [
-    "its",
-    "very",
-    "nice"
+    "buzzer",
+    "quiz-tool"
   ],
-  "author": "Me and my GF",
+  "author": "deichbu.de",
   "license": "ISC",
   "dependencies": {
     "dateformat": "^3.0.3",
