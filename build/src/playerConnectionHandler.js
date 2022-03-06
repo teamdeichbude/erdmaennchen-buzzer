@@ -1,66 +1,50 @@
-import { Socket } from 'socket.io';
-import { BuzzerType } from './buzzerType';
-import { Player } from './player';
-
-export class PlayerConnectionHandler {
-    public players: Player[];
-    private sockets: Socket[];
-    private admin: Socket;
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PlayerConnectionHandler = void 0;
+const buzzerType_1 = require("./buzzerType");
+const player_1 = require("./player");
+class PlayerConnectionHandler {
     constructor() {
         this.players = [];
         this.sockets = [];
         this.admin = null;
     }
-
-    addSocket(socket: Socket): void {
+    addSocket(socket) {
         this.sockets.push(socket);
     }
-
-    addAdmin(socket: Socket) {
+    addAdmin(socket) {
         this.admin = socket;
     }
-
-    getSocketById(id: string): Socket {
+    getSocketById(id) {
         return this.sockets.find(function (item) {
             return item.id === id;
         });
     }
-
-    getPlayerById(id: string): Player {
+    getPlayerById(id) {
         return this.players.find(function (item) {
             return item.id === id;
         });
     }
-
-    getAdminSocket(): Socket {
+    getAdminSocket() {
         return this.admin;
     }
-
-    connectPlayer(
-        playerId: string,
-        playerName: string,
-        playerAudioIdent: string,
-        buzzerActive: boolean,
-        buzzerType: BuzzerType,
-    ) {
+    connectPlayer(playerId, playerName, playerAudioIdent, buzzerActive, buzzerType) {
         const exisitingPlayer = this.getPlayerById(playerId);
         if (exisitingPlayer) {
             throw new Error('player with id ' + playerId + ' already exists under the name:' + exisitingPlayer.name);
         }
-
-        const player = new Player(playerId, playerName, playerAudioIdent, buzzerActive);
+        const player = new player_1.Player(playerId, playerName, playerAudioIdent, buzzerActive);
         this.players.push(player);
-
         this.getSocketById(player.id).emit('sde-player-buzzstatechange', { enabled: buzzerActive, win: null });
-        if (buzzerType === BuzzerType.text) {
+        if (buzzerType === buzzerType_1.BuzzerType.text) {
             this.getSocketById(player.id).emit('sde-player-buzztypetext');
         }
     }
-
-    disconnectPlayer(playerId: string): void {
+    disconnectPlayer(playerId) {
         this.players = this.players.filter(function (item) {
             return item.id !== playerId;
         });
     }
 }
+exports.PlayerConnectionHandler = PlayerConnectionHandler;
+//# sourceMappingURL=playerConnectionHandler.js.map

@@ -1,4 +1,4 @@
 export enum BuzzerType {
-    text,
-    buzzer
+    text = 'text',
+    buzzer = 'buzzer'
 }

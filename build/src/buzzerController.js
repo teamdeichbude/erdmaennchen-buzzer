@@ -1,18 +1,17 @@
-import { PlayerConnectionHandler } from './playerConnectionHandler';
-import * as dateformat from 'dateformat';
-import { Player } from './player';
-import { BuzzerType } from './buzzerType';
-
-export class BuzzerController {
-    private buzzOrder = [];
-    public singleBuzzMode = false;
-    public playerBroadCast = null;
-
-    constructor(private connectionHandler: PlayerConnectionHandler) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BuzzerController = void 0;
+const dateformat = require("dateformat");
+const buzzerType_1 = require("./buzzerType");
+class BuzzerController {
+    constructor(connectionHandler) {
+        this.connectionHandler = connectionHandler;
+        this.buzzOrder = [];
+        this.singleBuzzMode = false;
+        this.playerBroadCast = null;
         this.buzzOrder = [];
     }
-
-    playerBuzzed(player: Player, textInput: string) {
+    playerBuzzed(player, textInput) {
         if (!player) {
             throw new Error("player cant buzz before being connected properly. Please connect with valid name first.");
         }
@@ -27,14 +26,12 @@ export class BuzzerController {
             if (this.playerBroadCast) {
                 const data = { player: player, isFirstBuzz: win, time: player.lastBuzzTime, formattedTime: dateformat(player.lastBuzzTime, "H:MM:ss.l") };
                 this.playerBroadCast.emit("sde-player-buzzed", data);
-                this.connectionHandler.getAdminSocket().emit('sde-player-buzzed', { ...data, 'textInput': textInput });
+                this.connectionHandler.getAdminSocket().emit('sde-player-buzzed', Object.assign(Object.assign({}, data), { 'textInput': textInput }));
             }
         }
     }
-
-    activateAll(buzzerType: BuzzerType) {
+    activateAll(buzzerType) {
         this.buzzOrder = [];
-
         for (const p of this.connectionHandler.players) {
             this.setBuzzerType(p, buzzerType);
             this.setBuzzerState(p, true);
@@ -42,8 +39,7 @@ export class BuzzerController {
             console.log("player", p.name, "activated");
         }
     }
-
-    deactivateAll(excludeId?: string, sendWin: boolean | null = null) {
+    deactivateAll(excludeId, sendWin = null) {
         for (const p of this.connectionHandler.players) {
             if (p.id !== excludeId) {
                 this.setBuzzerState(p, false, sendWin);
@@ -52,22 +48,20 @@ export class BuzzerController {
             }
         }
     }
-
-    setBuzzerType(player: Player, mode: BuzzerType): void {
+    setBuzzerType(player, mode) {
         let emitEventName = "sde-player-buzztypebuzz";
-        if (mode === BuzzerType.text) {
-            emitEventName = "sde-player-buzztypetext"
+        if (mode === buzzerType_1.BuzzerType.text) {
+            emitEventName = "sde-player-buzztypetext";
         }
-
         this.connectionHandler
             .getSocketById(player.id)
             .emit(emitEventName);
     }
-
-    setBuzzerState(player: Player, state: boolean, win?: boolean): void {
+    setBuzzerState(player, state, win) {
         player.canBuzz = state;
-        //   if(socket.id === playerID) {
         this.connectionHandler.getSocketById(player.id)
             .emit("sde-player-buzzstatechange", { enabled: state, win: win });
     }
 }
+exports.BuzzerController = BuzzerController;
+//# sourceMappingURL=buzzerController.js.map
