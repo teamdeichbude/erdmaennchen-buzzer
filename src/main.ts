@@ -1,20 +1,28 @@
-/*eslint-env node */
+import express from 'express';
+import { Server } from 'socket.io';
+import { createServer } from 'http';
+import path from 'path';
 
-var express = require('express');
-var app = express();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http, {
-    cors: {    
-      origin: "*",    
-      methods: ["GET", "POST"]  
-    }});
-var path = require('path');
+import { PlayerConnectionHandler } from './playerConnectionHandler';
+import { BuzzerController } from './buzzerController';
+
+// var express = require('express');
+const app = express();
+
+const httpServer = createServer(app);
+
+// var http = require('http').createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
 
 const adminIO = io.of('/admin');
 const playerIO = io.of('/player');
 
-let { PlayerConnectionHandler } = require("../src/playerConnectionHandler");
-let { BuzzerController } = require("../src/buzzerController");
+const { BuzzerController } = require('./buzzerController');
 
 let takenBuzzSounds = [];
 let buzzersActive = false;
@@ -23,65 +31,53 @@ let buzzerType = 'buzzer'; // or 'text'
 const ConnectionHandler = new PlayerConnectionHandler();
 const BuzzerControl = new BuzzerController(ConnectionHandler);
 
-
 app.use(express.static(path.join(__dirname, '../public'))); //serving of static "client" files
 
-app.get('/', function (req, res)
-{
+app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../public/player/index.html'));
 });
 
 BuzzerControl.playerBroadCast = playerIO;
 
-playerIO.on('connection', function (socket)
-{
+playerIO.on('connection', function (socket) {
   console.log('player connected'); //socket connected, but not registered as player, yet.
 
   ConnectionHandler.addSocket(socket);
   sendDisabledBuzzSounds(); //for players to receive which sounds can be selected
 
-  socket.on('disconnect', function ()
-  {
-    let player = ConnectionHandler.getPlayerById(socket.id);
+  socket.on('disconnect', function () {
+    const player = ConnectionHandler.getPlayerById(socket.id);
     //remove player buzz sound from taken sounds to enable buzz sound again for other players
     if (player) {
-      takenBuzzSounds = takenBuzzSounds.filter(sound => sound !== player.soundIdent);
+      takenBuzzSounds = takenBuzzSounds.filter((sound) => sound !== player.soundIdent);
       sendDisabledBuzzSounds();
     }
-  
+
     ConnectionHandler.disconnectPlayer(socket.id);
     //inform admin of playercount changed
     onPlayerConnectionsChanged();
   });
 
-  socket.on("sde-player-connect", function (data)
-  {
-    try
-    {
+  socket.on('sde-player-connect', function (data) {
+    try {
       ConnectionHandler.connectPlayer(socket.id, data.playerName, data.playerAudio, buzzersActive, buzzerType);
       takenBuzzSounds.push(data.playerAudio);
       sendDisabledBuzzSounds();
-    }
-    catch (e)
-    {
+    } catch (e) {
       console.error(e);
-      socket.emit("sde-error", { error: e.message });
+      socket.emit('sde-error', { error: e.message });
     }
 
     //inform admin of playercount changed
     onPlayerConnectionsChanged();
   });
 
-  socket.on("sde-player-buzzed", function (textInput)
-  {
-    try
-    {
+  socket.on('sde-player-buzzed', function (textInput) {
+    try {
       BuzzerControl.playerBuzzed(ConnectionHandler.getPlayerById(socket.id), textInput);
-    }
-    catch (e)
-    {
+    } catch (e) {
       console.error(e);
-      socket.emit("sde-error", { error: e.message });
+      socket.emit('sde-error', { error: e.message });
     }
   });
 
@@ -97,7 +93,7 @@ playerIO.on('connection', function (socket)
   }
 });
 
-adminIO.on('connection', function(socket){
+adminIO.on('connection', function (socket) {
   console.log('admin connected');
   ConnectionHandler.addAdmin(socket);
 
@@ -110,8 +106,7 @@ adminIO.on('connection', function(socket){
   /**
    * buzzerMode is one of "buzzerTypeBuzzer" or "buzzerTypeText"
    */
-  socket.on("sde-admin-activate", function (activate, buzzerMode)
-  {
+  socket.on('sde-admin-activate', function (activate, buzzerMode) {
     if (buzzerMode === 'buzzerTypeBuzzer') {
       buzzerType = 'buzzer';
     } else if (buzzerMode === 'buzzerTypeText') {
@@ -128,34 +123,27 @@ adminIO.on('connection', function(socket){
     }
   });
 
-  socket.on("sde-admin-deactivate", function (deactivate)
-  {
-    if (deactivate)
-    {
+  socket.on('sde-admin-deactivate', function (deactivate) {
+    if (deactivate) {
       BuzzerControl.deactivateAll();
     }
   });
 
-  socket.on("sde-admin-toggleSingleBuzz", function (data)
-  {
+  socket.on('sde-admin-toggleSingleBuzz', function (data) {
     BuzzerControl.singleBuzzMode = data.single;
   });
 
   socket.on('sde-player-buzzstate-updated', function (data) {
     console.log(data);
-
   });
-
 });
 
-function onPlayerConnectionsChanged()
-  {
-    adminIO.emit("sde-admin-playersChanged", {
-      allPlayers: ConnectionHandler.Players
-    });
-  }
+function onPlayerConnectionsChanged() {
+  adminIO.emit('sde-admin-playersChanged', {
+    allPlayers: ConnectionHandler.Players,
+  });
+}
 
-http.listen(3001, function ()
-{
+http.listen(3001, function () {
   console.log('listening on *:3001');
 });
